@@ -332,13 +332,28 @@ void HudController::Update()
         }
     }
 
+    if (mIsFinalVideoPlaying && mFinalVideoComponent)
+    {
+        bool stopFinalVideo = false;
+        if (!mFinalVideoComponent->IsPlaying()) stopFinalVideo = true;
+        else if (App->GetInput()->GetKey(Keys::Keys_ESCAPE) == KeyState::KEY_DOWN ||
+            App->GetInput()->GetKey(Keys::Keys_BACKSPACE) == KeyState::KEY_DOWN ||
+            App->GetInput()->GetGameControllerButton(ControllerButton::SDL_CONTROLLER_BUTTON_B) == ButtonState::BUTTON_DOWN)
+            stopFinalVideo = true;
+
+        if (stopFinalVideo)
+        {
+            OnFinalVideoBackClick();
+        }
+    }
+
     if (mFadeoutImage && mFadeIn && !mIsVideoPlaying) FadeIn();
     else if (mFadeoutImage && !mFadeIn && !mIsVideoPlaying) FadeOut();
     if(mLoadlevel == true && mLoadingSlider->GetValue() < 1) mLoadingSlider->SetValue(mLoadingSlider->GetValue() + 0.01);
 
     Controls();
 
-    if (mEnemyGO->IsEnabled()) {
+    if (mEnemyGO && mEnemyGO->IsEnabled()) {
         if (mEnemyArrowsTransform->GetPosition().x < -525.0f)
             mEnemyArrowsTransform->SetPosition(float3(mEnemyArrowsTransform->GetPosition().x + 800.0f * App->GetDt(), 0.0f, 0.0f));
         mTime += App->GetDt();
@@ -610,6 +625,7 @@ void HudController::DisableCollectible()
 
 void HudController::SetEnemyScreen(bool value, int enemy)
 {
+    if (!mEnemyGO) return;
     if (mEnemyGO->IsEnabled() && value) return;
     mEnemyGO->SetEnabled(value);
     

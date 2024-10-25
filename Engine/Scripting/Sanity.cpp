@@ -152,12 +152,17 @@ void Sanity::Start()
 
 void Sanity::Update()
 {
-    if (mEnd && mEndTimer.Delay(2.0f)) FinishSanity();
+    if (mEnd && mEndTimer.Delay(1.5f)) FinishSanity();
     //else if (mEnd) UpdateSelected();
 
     Controls();
 
-    if (mTimeout && mClickTimout.Delay(1.0f)) mTimeout = false;
+    if (mTimeout && mClickTimout.Delay(0.5f))
+    {
+        mTimeout = false;
+        mCurrentBuff = 2;
+        CardHover();
+    }
     mTimePassed += App->GetDt();
 }
 

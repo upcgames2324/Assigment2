@@ -84,7 +84,7 @@ void Dialog::Start()
 
 void Dialog::Update()
 {
-    if (mStartTimeout && !mStartTimer.DelayWithoutReset(3.0f)) return;
+    if (mStartTimeout && !mStartTimer.DelayWithoutReset(2.5f)) return;
     else if (mStartTimeout) EnableDialog();
 
     if (mTimeout && mClickTimout.Delay(2.0f)) mTimeout = false;
