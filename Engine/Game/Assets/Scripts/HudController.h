@@ -77,6 +77,7 @@ private:
     void OnWinButtonClick();
     void OnTryAgainButtonClick();
     void OnVideoBackClick();
+    void OnFinalVideoBackClick();
     void OnTryAgainButtonHoverOn();
     void OnTryAgainButtonHoverOff();
     void OnLoseButtonClick();
@@ -237,6 +238,14 @@ private:
     GameObject* mVideoBtnGO = nullptr;
     ButtonComponent* mVideoBtn = nullptr;
     int mVideoAudio = -1;
+
+    // FinalVideo
+    GameObject* mFinalVideoGO = nullptr;
+    VideoComponent* mFinalVideoComponent = nullptr;
+    bool mIsFinalVideoPlaying = false;
+    GameObject* mFinalVideoBtnGO = nullptr;
+    ButtonComponent* mFinalVideoBtn = nullptr;
+    int mFinalVideoAudio = -1;
 
     //Highlights
     bool mGrenadeHL = false;

@@ -119,7 +119,7 @@ void GameManager::Update()
         if (mLoadTimer.DelayWithoutReset(1.0f)) 
         {
             if (mHudController) mHudController->SetScreen(SCREEN::LOAD, true);
-            if (mLoadSecondTimer.Delay(1.0f))
+            if (mLoadSecondTimer.DelayWithoutReset(1.0f))
             {
                 EndAudio();
                 Clean();
@@ -150,6 +150,8 @@ void GameManager::Update()
             if (!mPaused || mPaused && mPauseScreen) SetPaused(!mPaused, true);
         }
     }
+
+    
 
     if (App->GetInput()->GetKey(Keys::Keys_N) == KeyState::KEY_DOWN)
     {
@@ -223,7 +225,6 @@ void GameManager::Victory()
     mHudController->SetScreen(SCREEN::WIN, true);
 
     EndAudio();
-    // Loading activated from HUD controller on Btn Click.
 }
 
 void GameManager::GameOver()
@@ -235,7 +236,6 @@ void GameManager::GameOver()
     EndAudio();
 
     mGameOverAudio = GetAudio()->Play(BGM::GAMEOVER);
-    // Loading activated from HUD controller on Btn Click.
 }
 
 void GameManager::HitStopTime(float time)

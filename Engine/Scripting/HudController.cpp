@@ -101,6 +101,8 @@ CREATE(HudController)
     SEPARATOR("Video");
     MEMBER(MemberType::GAMEOBJECT, mVideoGO);
     MEMBER(MemberType::GAMEOBJECT, mVideoBtnGO);
+    MEMBER(MemberType::GAMEOBJECT, mFinalVideoGO);
+    MEMBER(MemberType::GAMEOBJECT, mFinalVideoBtnGO);
 
     SEPARATOR("Enemies");
     MEMBER(MemberType::GAMEOBJECT, mEnemyGO);
@@ -284,6 +286,14 @@ void HudController::Start()
         mFadeoutScreen->SetEnabled(true);
     }
 
+    if (mFinalVideoGO)
+    {
+        mFinalVideoComponent = static_cast<VideoComponent*>(mFinalVideoGO->GetComponent(ComponentType::VIDEO));
+        mFinalVideoGO->SetEnabled(false);
+        mFinalVideoBtn = static_cast<ButtonComponent*>(mFinalVideoBtnGO->GetComponent(ComponentType::BUTTON));
+        mFinalVideoBtn->AddEventHandler(EventType::CLICK, new std::function<void()>(std::bind(&HudController::OnFinalVideoBackClick, this)));
+    }
+
     if (mVideoGO)
     {
         mVideoComponent = static_cast<VideoComponent*>(mVideoGO->GetComponent(ComponentType::VIDEO));
@@ -335,8 +345,8 @@ void HudController::Update()
         mEnemyWarningImage->SetAlpha((sin(mTime * 10.0f) + 1.0f) / 2.0f * (1.0f - 0.5f) + 0.5f);
     }
 
-    if (mLoseFlag == true) LoseUpdate();
-    if (mWinFlag == true) WinUpdate();
+    if (mLoseFlag) LoseUpdate();
+    if (mWinFlag) WinUpdate();
 
     if (GameManager::GetInstance()->IsPaused()) return;
 
@@ -446,16 +456,23 @@ void HudController::LoseUpdate()
 
 void HudController::WinUpdate()
 {
-    if (*mWinFadeImage->GetAlpha() < 1.0f) mWinFadeImage->SetAlpha(*mWinFadeImage->GetAlpha() + 0.30f * App->GetDt());
+    if (mWinAnimationTimer.DelayWithoutReset(3.0f) && *mFadeoutImage->GetAlpha() == 1.0f)
+    {
+        if (mFinalVideoComponent && !mIsFinalVideoPlaying)
+        {
+            mFinalVideoGO->SetEnabled(true);
+            mFinalVideoComponent->Play();
+            PlayVideoAssociatedAudio();
 
-    if (mWinAnimationTimer.DelayWithoutReset(0.5f))
-    {
-        if (*mWinBackImage->GetAlpha() < 1.0f) mWinBackImage->SetAlpha(*mWinBackImage->GetAlpha() + 0.30f * App->GetDt());
+            GameManager::GetInstance()->PauseBackgroundAudio(true);
+            mIsFinalVideoPlaying = true;
+            mWinFlag = false;
+        }
     }
-    if (mWinAnimationTimer.DelayWithoutReset(1.0f))
+    else if (mWinAnimationTimer.DelayWithoutReset(3.0f))
     {
-        if (*mWinTextImage->GetAlpha() < 0.8f) mWinTextImage->SetAlpha(*mWinTextImage->GetAlpha() + 0.30f * App->GetDt());
-    }
+        mFadeIn = false;
+    } 
 }
 
 void HudController::FadeIn()
@@ -488,9 +505,9 @@ void HudController::WinAnimation()
     mWinFlag = true;
     mWinAnimationTimer.Reset();
 
-    mWinBackImage->SetAlpha(0.0f);
-    mWinFadeImage->SetAlpha(0.0f);
-    mWinTextImage->SetAlpha(0.0f);
+    //mWinBackImage->SetAlpha(0.0f);
+    //mWinFadeImage->SetAlpha(0.0f);
+    //mWinTextImage->SetAlpha(0.0f);
 }
 
 void HudController::PlayVideoAssociatedAudio()
@@ -816,7 +833,8 @@ void HudController::SetScreen(SCREEN name, bool active)
             }
             break;
         case SCREEN::WIN:
-            if (mWinScreen) mWinScreen->SetEnabled(active);
+            //if (mWinScreen) mWinScreen->SetEnabled(active);
+            WinAnimation();
             break;
         case SCREEN::PAUSE:
             if (active) LOG("Pause true") else LOG("Pause false")
@@ -903,6 +921,20 @@ void HudController::OnVideoBackClick()
     ReleaseVideoAssociatedAudio();
 
     GameManager::GetInstance()->PauseBackgroundAudio(false);
+}
+
+void HudController::OnFinalVideoBackClick()
+{
+    mFinalVideoGO->SetEnabled(false);
+    mFinalVideoComponent->Stop();
+    mIsFinalVideoPlaying = false;
+
+    ReleaseVideoAssociatedAudio();
+    GameManager::GetInstance()->PauseBackgroundAudio(false);
+
+    App->GetScene()->GetPlayerStats()->ResetStats();
+    App->GetScene()->GetPlayerStats()->SetGameFinished(true);
+    GameManager::GetInstance()->LoadLevel("Assets/Scenes/MainMenu");
 }
 
 void HudController::OnSelectLoseOption(LoseOption option)
