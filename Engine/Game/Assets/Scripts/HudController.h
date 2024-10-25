@@ -95,8 +95,8 @@ private:
     void LoseAnimation();
     void WinAnimation();
     
-    void PlayVideoAssociatedAudio();
-    void ReleaseVideoAssociatedAudio();
+    void PlayVideoAssociatedAudio(const char* videoName);
+    void ReleaseVideoAssociatedAudio(const char* videoName);
 
     // Pause Menu
     GameObject* mPauseScreen = nullptr;
