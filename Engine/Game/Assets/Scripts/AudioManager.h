@@ -17,7 +17,9 @@ enum class BGM
 
 	GAMEOVER,
 
-	INTRO_VIDEO
+	INTRO_VIDEO,
+	BEFORE_BOSS,
+	AFTER_BOSS,
 };
 
 enum class SFX
@@ -203,6 +205,9 @@ private:
 		{BGM::GAMEOVER, "Assets/FMOD/Audios/bgm/die.mp3"},
 
 		{BGM::INTRO_VIDEO, "Assets/FMOD/Audios/bgm/introvideo.mp3"},
+
+		{BGM::BEFORE_BOSS, "Assets/FMOD/Audios/bgm/Video_BEFORE_Boss.mp3"},
+		{BGM::AFTER_BOSS, "Assets/FMOD/Audios/bgm/Video_AFTER_Boss.mp3"},
 
 	};
 

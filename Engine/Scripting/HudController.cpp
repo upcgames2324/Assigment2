@@ -304,7 +304,7 @@ void HudController::Start()
     if (mVideoComponent)
     {
         mVideoComponent->Play();
-        PlayVideoAssociatedAudio();
+        PlayVideoAssociatedAudio(mVideoComponent->GetName());
         GameManager::GetInstance()->SetPaused(true, false);
         GameManager::GetInstance()->PauseBackgroundAudio(true);
         mIsVideoPlaying = true;
@@ -477,7 +477,7 @@ void HudController::WinUpdate()
         {
             mFinalVideoGO->SetEnabled(true);
             mFinalVideoComponent->Play();
-            PlayVideoAssociatedAudio();
+            PlayVideoAssociatedAudio(mFinalVideoComponent->GetName());
 
             GameManager::GetInstance()->PauseBackgroundAudio(true);
             mIsFinalVideoPlaying = true;
@@ -525,9 +525,8 @@ void HudController::WinAnimation()
     //mWinTextImage->SetAlpha(0.0f);
 }
 
-void HudController::PlayVideoAssociatedAudio()
+void HudController::PlayVideoAssociatedAudio(const char* videoName)
 {
-    const char* videoName = mVideoComponent->GetName();
     bool isVideoLoop = mVideoComponent->GetLoop();
 
     if (strcmp(videoName, "Chrysalis_intro.mp4") == 0)
@@ -535,15 +534,31 @@ void HudController::PlayVideoAssociatedAudio()
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::INTRO_VIDEO);
         GameManager::GetInstance()->GetAudio()->SetLoop(BGM::INTRO_VIDEO, mVideoAudio, isVideoLoop);
     }
+    else if (strcmp(videoName, "Video_AFTER_Boss.mp4") == 0)
+    {
+        mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::AFTER_BOSS);
+        GameManager::GetInstance()->GetAudio()->SetLoop(BGM::AFTER_BOSS, mVideoAudio, isVideoLoop);
+    }
+    else if (strcmp(videoName, "Video_BEFORE_Boss.mp4") == 0)
+    {
+        mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::BEFORE_BOSS);
+        GameManager::GetInstance()->GetAudio()->SetLoop(BGM::BEFORE_BOSS, mVideoAudio, isVideoLoop);
+    }
 }
 
-void HudController::ReleaseVideoAssociatedAudio()
+void HudController::ReleaseVideoAssociatedAudio(const char* videoName)
 {
-    const char* videoName = mVideoComponent->GetName();
-
     if (strcmp(videoName, "Chrysalis_intro.mp4") == 0)
     {
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Release(BGM::INTRO_VIDEO, mVideoAudio);
+    }
+    else if (strcmp(videoName, "Video_AFTER_Boss.mp4") == 0)
+    {
+        mVideoAudio = GameManager::GetInstance()->GetAudio()->Release(BGM::AFTER_BOSS, mVideoAudio);
+    }
+    else if (strcmp(videoName, "Video_BEFORE_Boss.mp4") == 0)
+    {
+        mVideoAudio = GameManager::GetInstance()->GetAudio()->Release(BGM::BEFORE_BOSS, mVideoAudio);
     }
 }
 
@@ -934,7 +949,7 @@ void HudController::OnVideoBackClick()
 
     if (App->GetScene()->GetName() != "Level3Scene") SetDialog();
 
-    ReleaseVideoAssociatedAudio();
+    ReleaseVideoAssociatedAudio(mVideoComponent->GetName());
 
     GameManager::GetInstance()->PauseBackgroundAudio(false);
 }
@@ -945,7 +960,7 @@ void HudController::OnFinalVideoBackClick()
     mFinalVideoComponent->Stop();
     mIsFinalVideoPlaying = false;
 
-    ReleaseVideoAssociatedAudio();
+    ReleaseVideoAssociatedAudio(mFinalVideoComponent->GetName());
     GameManager::GetInstance()->PauseBackgroundAudio(false);
 
     App->GetScene()->GetPlayerStats()->ResetStats();
