@@ -431,7 +431,7 @@
                             {
                                 "VariableName": "mAnimationTime",
                                 "MemberType": 1,
-                                "VariableData": 7.829999923706055
+                                "VariableData": 5.5
                             },
                             {
                                 "VariableName": "CAMERAS",
@@ -482,7 +482,7 @@
                             {
                                 "VariableName": "mEnemyAnimState1",
                                 "MemberType": 0,
-                                "VariableData": 1
+                                "VariableData": 5
                             },
                             {
                                 "VariableName": "mEnemyGO2",
@@ -521,7 +521,7 @@
                             {
                                 "VariableName": "mBattleAreaGO1",
                                 "MemberType": 3,
-                                "VariableData": 2107676517
+                                "VariableData": 1504512197
                             },
                             {
                                 "VariableName": "mBattleAreaGO2",
@@ -559,7 +559,7 @@
                             {
                                 "VariableName": "mFadeSpeed",
                                 "MemberType": 1,
-                                "VariableData": 0.04500000178813934
+                                "VariableData": 0.009999999776482582
                             },
                             {
                                 "VariableName": "HUD",
@@ -644,125 +644,6 @@
                 "OverridePrefab": false,
                 "Dynamic": false,
                 "Components": []
-            },
-            {
-                "UID": 2107676517,
-                "ParentUID": 1145305434,
-                "Name": "CinematicBattleArea",
-                "Enabled": true,
-                "Active": true,
-                "Translation": [
-                    26.5,
-                    2.0436205863952638,
-                    0.0
-                ],
-                "Rotation": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    1.0
-                ],
-                "Scale": [
-                    1.0,
-                    1.0,
-                    1.0
-                ],
-                "Tag": "BattleArea",
-                "PrefabUid": 0,
-                "OverridePrefab": false,
-                "Dynamic": false,
-                "Components": [
-                    {
-                        "ComponentType": 17,
-                        "IsEnabled": true,
-                        "Center": [
-                            0.0,
-                            0.0,
-                            0.0
-                        ],
-                        "Size": [
-                            0.699999988079071,
-                            2.5,
-                            2.5
-                        ],
-                        "ColliderType": 0,
-                        "FreezeRotation": false
-                    },
-                    {
-                        "ComponentType": 3,
-                        "IsEnabled": true,
-                        "ScriptName": "BattleArea",
-                        "ScriptVariables": [
-                            {
-                                "VariableName": "mSpawnerGO1",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "mSpawnerGO2",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "mSpawnerGO3",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "mSpawnerGO4",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "mWavesRounds",
-                                "MemberType": 0,
-                                "VariableData": 0
-                            },
-                            {
-                                "VariableName": "DOORS",
-                                "MemberType": 5
-                            },
-                            {
-                                "VariableName": "mAreaDoorsGO",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "EXPLOSIVE SPAWNERS",
-                                "MemberType": 5
-                            },
-                            {
-                                "VariableName": "mExplosiveSpawn1",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "mExplosiveSpawn2",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "mExplosiveSpawn3",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "mExplosiveSpawn4",
-                                "MemberType": 3,
-                                "VariableData": -1
-                            },
-                            {
-                                "VariableName": "TUTORIAL",
-                                "MemberType": 5
-                            },
-                            {
-                                "VariableName": "mIsTutorialArea",
-                                "MemberType": 2,
-                                "VariableData": false
-                            }
-                        ]
-                    }
-                ]
             },
             {
                 "UID": 1702026974,
@@ -14887,12 +14768,7 @@
                             {
                                 "VariableName": "mMaxHealth",
                                 "MemberType": 1,
-                                "VariableData": 1000.0
-                            },
-                            {
-                                "VariableName": "mSpeed",
-                                "MemberType": 1,
-                                "VariableData": 1.0
+                                "VariableData": 1500.0
                             },
                             {
                                 "VariableName": "mAttackDistance",
@@ -14912,7 +14788,7 @@
                             {
                                 "VariableName": "mPhaseShiftTime",
                                 "MemberType": 1,
-                                "VariableData": 5.0
+                                "VariableData": 2.5
                             },
                             {
                                 "VariableName": "mPhase1Hp",
@@ -14923,6 +14799,16 @@
                                 "VariableName": "mPhase2Hp",
                                 "MemberType": 1,
                                 "VariableData": 0.30000001192092898
+                            },
+                            {
+                                "VariableName": "mSpawnOffsetY",
+                                "MemberType": 1,
+                                "VariableData": -10.0
+                            },
+                            {
+                                "VariableName": "mSpeed",
+                                "MemberType": 1,
+                                "VariableData": 3.0
                             },
                             {
                                 "VariableName": "mShieldGO",

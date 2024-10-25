@@ -156,13 +156,6 @@ void CinematicCamera::Update()
                     {
                         GameManager::GetInstance()->HandleBossAudio(-1);
                         if (!mEscape && mPlayingCinematic) GameManager::GetInstance()->GetHud()->SetEnemyScreen(true, 0);
-                        if (mPlayer)
-                        {
-                            //Locates the player away from the scene
-                            float3 position = mPlayer->GetWorldPosition();
-                            position.y -= 5.0f;
-                            mPlayer->SetWorldPosition(position);
-                        }
                     }  
                 }    
             }    
@@ -232,6 +225,10 @@ void CinematicCamera::StartCinematic(GameObject* cameraObject, GameObject* dummy
             else
             {
                 mTargetPosition = ((dummy->GetWorldPosition()) - ((mCinematicCameraGO->GetFront()) * mDistanceToEnemy));
+                if (mPlayer)
+                {
+                    mPlayerOgPos = mPlayer->GetWorldPosition();
+                }
             }
             
             mCinematicCameraGO->Translate(-(mCinematicCameraGO->GetFront()) * mDistanceToEnemy);
@@ -280,10 +277,10 @@ void CinematicCamera::UpdateCinematic(GameObject* dummy, BattleArea* battleArea)
                     {
                         ActivateDummy(mDummy, true);
                     }
-                    
+                                        
                     HandleCameraMovement();
                 }
-
+                
                 if (mTimer.Delay(mAnimationTime))
                 {
                     if (mAnimationComponent)
@@ -351,6 +348,11 @@ bool CinematicCamera::HandleFadeIn()
             {
                 ActivateCamera(true);
                 mPlayerCamera->SetEnabled(false);
+            }
+            if (mDummy->GetName() == "FinalBoss" && mPlayer)
+            {
+                //Locates the player away from the scene
+                mPlayer->SetWorldPosition(mPlayerOgPos + float3::unitX * 50);
             }
 
             mCinematicCamera = (CameraComponent*)mCinematicCameraGO->GetComponent(ComponentType::CAMERA);
@@ -477,12 +479,10 @@ void CinematicCamera::EndCinematic()
         }
     }
 
-    if (App->GetScene()->GetName() == "Level1Scene" && mPlayer)
+    if (App->GetScene()->GetName() == "Level3Scene" && mPlayer)
     {
         //Locates the player in a correct position behind the doors
-        float3 position = mPlayer->GetWorldPosition();
-        position.y += 5.0f;
-        mPlayer->SetWorldPosition(position);
+        mPlayer->SetWorldPosition(mPlayerOgPos);
     }
 }
 

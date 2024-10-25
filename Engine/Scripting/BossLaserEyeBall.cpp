@@ -138,7 +138,7 @@ void BossLaserEyeBall::UpdateLaser()
     ray.dir = mGameObject->GetFront();
     ray.pos = mLaserOrigin->GetWorldPosition();
 
-    std::vector<std::string> ignoreTags = { "Bullet", "BattleArea", "Trap", "Drop", "Enemy" };
+    std::vector<std::string> ignoreTags = { "Bullet", "BattleArea", "Trap", "Drop", "Enemy", "DoorArea"};
     Physics::Raycast(hit, ray, mDistance, &ignoreTags);
 
     if (hit.IsValid())
