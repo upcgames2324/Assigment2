@@ -77,6 +77,7 @@ private:
     void OnWinButtonClick();
     void OnTryAgainButtonClick();
     void OnVideoBackClick();
+    void OnFinalVideoBackClick();
     void OnTryAgainButtonHoverOn();
     void OnTryAgainButtonHoverOff();
     void OnLoseButtonClick();
@@ -166,6 +167,8 @@ private:
     SliderComponent* mBossHealthSlider = nullptr;
     ImageComponent* mBossHealthImage = nullptr;
     SliderComponent* mBossHealthGradualSlider = nullptr;
+    GameObject* mBossHealthBaseGO = nullptr;
+    GameObject* mBossHealthInvincibleGO = nullptr;
 
     //Ammo
     GameObject* mAmmoBaseGO = nullptr;
@@ -227,10 +230,6 @@ private:
     ImageComponent* mWinFadeImage = nullptr;
     GameObject* mWinText = nullptr;
     ImageComponent* mWinTextImage = nullptr;
-    GameObject* mWinLineRight = nullptr;
-    Transform2DComponent* mWinLineRightTransfrom = nullptr;
-    GameObject* mWinLineLeft = nullptr;
-    Transform2DComponent* mWinLineLeftTransfrom = nullptr;
     
     // Video
     GameObject* mVideoGO = nullptr;
@@ -239,6 +238,14 @@ private:
     GameObject* mVideoBtnGO = nullptr;
     ButtonComponent* mVideoBtn = nullptr;
     int mVideoAudio = -1;
+
+    // FinalVideo
+    GameObject* mFinalVideoGO = nullptr;
+    VideoComponent* mFinalVideoComponent = nullptr;
+    bool mIsFinalVideoPlaying = false;
+    GameObject* mFinalVideoBtnGO = nullptr;
+    ButtonComponent* mFinalVideoBtn = nullptr;
+    int mFinalVideoAudio = -1;
 
     //Highlights
     bool mGrenadeHL = false;
@@ -270,6 +277,11 @@ private:
     GameObject* mEnemy3GO = nullptr;
     GameObject* mEnemy4GO = nullptr;
     GameObject* mEnemy5GO = nullptr;
+    GameObject* mEnemyWarningGO = nullptr;
+    ImageComponent* mEnemyWarningImage = nullptr;
+    GameObject* mEnemyArrowsGO = nullptr;
+    Transform2DComponent* mEnemyArrowsTransform = nullptr;
+    float mTime;
 
 
     // Buttons change
