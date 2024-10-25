@@ -30,6 +30,7 @@ CREATE(GameManager)
     MEMBER(MemberType::GAMEOBJECT, mPoolManager);
     MEMBER(MemberType::GAMEOBJECT, mFirstTutorial);
     MEMBER(MemberType::GAMEOBJECT, mSecondTutorial);
+    MEMBER(MemberType::GAMEOBJECT, mPlayerDecal);
     MEMBER(MemberType::FLOAT, mDefaultHitStopTime);
     END_CREATE;
 }
@@ -196,6 +197,8 @@ void GameManager::SetPaused(bool value, bool screen)
     mHudController->SetHud(!value);
     if (screen) mHudController->SetScreen(SCREEN::PAUSE, mPaused);
     App->SetPaused(value);
+
+    if (mPlayerDecal) mPlayerDecal->SetEnabled(!value);
 
     if (value) App->GetWindow()->SetCursor(152793723);
     else App->GetWindow()->SetCursor(674180654, 46, 46, 23, 23);

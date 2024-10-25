@@ -97,6 +97,8 @@ private:
     TimerScript mLoadSecondTimer;
     Timer* mGameTimer = nullptr;
 
+    GameObject* mPlayerDecal = nullptr;
+
     GameObject* mCinematicManagerGO = nullptr;
     CinematicCamera* mCinematicCamera = nullptr;
 

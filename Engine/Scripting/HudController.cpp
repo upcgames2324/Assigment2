@@ -299,10 +299,6 @@ void HudController::Start()
         GameManager::GetInstance()->PauseBackgroundAudio(true);
         mIsVideoPlaying = true;
     }
-    else if (App->GetScene()->GetName() != "Level3Scene")
-    {
-        SetDialog();
-    }
 
     SetUltimateCooldown(App->GetScene()->GetPlayerStats()->GetUltimateResource());
 }
@@ -901,7 +897,9 @@ void HudController::OnVideoBackClick()
     mIsVideoPlaying = false;
 
     GameManager::GetInstance()->SetPaused(false, false);
-    SetDialog();
+
+    if (App->GetScene()->GetName() != "Level3Scene") SetDialog();
+
     ReleaseVideoAssociatedAudio();
 
     GameManager::GetInstance()->PauseBackgroundAudio(false);
