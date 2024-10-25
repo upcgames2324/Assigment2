@@ -156,6 +156,13 @@ void CinematicCamera::Update()
                     {
                         GameManager::GetInstance()->HandleBossAudio(-1);
                         if (!mEscape && mPlayingCinematic) GameManager::GetInstance()->GetHud()->SetEnemyScreen(true, 0);
+                        if (mPlayer)
+                        {
+                            //Locates the player away from the scene
+                            float3 position = mPlayer->GetWorldPosition();
+                            position.y -= 5.0f;
+                            mPlayer->SetWorldPosition(position);
+                        }
                     }  
                 }    
             }    
@@ -468,6 +475,14 @@ void CinematicCamera::EndCinematic()
             //position.x -= 2.6f;
             //mPlayer->SetWorldPosition(position);
         }
+    }
+
+    if (App->GetScene()->GetName() == "Level1Scene" && mPlayer)
+    {
+        //Locates the player in a correct position behind the doors
+        float3 position = mPlayer->GetWorldPosition();
+        position.y += 5.0f;
+        mPlayer->SetWorldPosition(position);
     }
 }
 

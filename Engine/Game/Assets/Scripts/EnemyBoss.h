@@ -62,6 +62,8 @@ private:
 	float mPhase2Hp = 0.3f;
 	bool mWakeUp = false;
 	bool mInvulnerable = true;
+	float mSpawnOffsetY = 0.0f;
+	float3 mOgPosition = float3::zero;
 
 	GameObject* mShieldGO = nullptr;
 	ImageComponent* mSpritesheet = nullptr;
