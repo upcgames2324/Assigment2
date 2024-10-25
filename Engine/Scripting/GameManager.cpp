@@ -30,6 +30,7 @@ CREATE(GameManager)
     MEMBER(MemberType::GAMEOBJECT, mPoolManager);
     MEMBER(MemberType::GAMEOBJECT, mFirstTutorial);
     MEMBER(MemberType::GAMEOBJECT, mSecondTutorial);
+    MEMBER(MemberType::GAMEOBJECT, mPlayerDecal);
     MEMBER(MemberType::FLOAT, mDefaultHitStopTime);
     END_CREATE;
 }
@@ -118,7 +119,7 @@ void GameManager::Update()
         if (mLoadTimer.DelayWithoutReset(1.0f)) 
         {
             if (mHudController) mHudController->SetScreen(SCREEN::LOAD, true);
-            if (mLoadSecondTimer.Delay(1.0f))
+            if (mLoadSecondTimer.DelayWithoutReset(1.0f))
             {
                 EndAudio();
                 Clean();
@@ -149,6 +150,8 @@ void GameManager::Update()
             if (!mPaused || mPaused && mPauseScreen) SetPaused(!mPaused, true);
         }
     }
+
+    
 
     if (App->GetInput()->GetKey(Keys::Keys_N) == KeyState::KEY_DOWN)
     {
@@ -197,6 +200,8 @@ void GameManager::SetPaused(bool value, bool screen)
     if (screen) mHudController->SetScreen(SCREEN::PAUSE, mPaused);
     App->SetPaused(value);
 
+    if (mPlayerDecal) mPlayerDecal->SetEnabled(!value);
+
     if (value) App->GetWindow()->SetCursor(152793723);
     else App->GetWindow()->SetCursor(674180654, 46, 46, 23, 23);
 }
@@ -220,7 +225,6 @@ void GameManager::Victory()
     mHudController->SetScreen(SCREEN::WIN, true);
 
     EndAudio();
-    // Loading activated from HUD controller on Btn Click.
 }
 
 void GameManager::GameOver()
@@ -232,7 +236,6 @@ void GameManager::GameOver()
     EndAudio();
 
     mGameOverAudio = GetAudio()->Play(BGM::GAMEOVER);
-    // Loading activated from HUD controller on Btn Click.
 }
 
 void GameManager::HitStopTime(float time)
