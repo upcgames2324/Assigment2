@@ -17,7 +17,7 @@
 CREATE(LoreCollectible)
 {
 	CLASS(owner);
-	MEMBER(MemberType::GAMEOBJECT, mMeshGO);
+	MEMBER(MemberType::GAMEOBJECT, mCollectibleVFX);
 	MEMBER(MemberType::INT, mLoreIndex);
 	END_CREATE;
 }
@@ -49,7 +49,7 @@ void LoreCollectible::Update()
 		App->GetInput()->GetKey(Keys::Keys_ESCAPE) == KeyState::KEY_DOWN)
 	{
 		GameManager::GetInstance()->GetHud()->DisableCollectible();
-
+		mCollectibleVFX->SetEnabled(false);
 	}
 
 	if (mColliding) CheckDistance();

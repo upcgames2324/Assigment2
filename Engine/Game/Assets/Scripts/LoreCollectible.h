@@ -44,7 +44,7 @@ private:
 
     bool mChange = false;
     float mColor = 255.0f;
-    GameObject* mMeshGO = nullptr;
+    GameObject* mCollectibleVFX = nullptr;
 
     int mLoreIndex = 0;
 
