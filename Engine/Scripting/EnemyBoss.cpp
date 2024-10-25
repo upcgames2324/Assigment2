@@ -130,6 +130,7 @@ void EnemyBoss::Update()
     if (GameManager::GetInstance()->GetHud()) GameManager::GetInstance()->GetHud()->SetBossHealth(mHealth / mMaxHealth);
     float t = HIT_ANIMATION;
     static short phaseChange = 0;
+    static bool scream = true;
     Rotate();
 
     if ((mStage == 1 && mHealth / mMaxHealth < mPhase2Hp) || (mStage == 0 && mHealth / mMaxHealth < mPhase1Hp))
@@ -193,14 +194,18 @@ void EnemyBoss::Update()
                 float dt = App->GetDt() * mSpeed;
                 if (dt * dt >= mOgPosition.DistanceSq(mGameObject->GetWorldPosition()))
                 {
-                    mGameObject->SetWorldPosition(mOgPosition);
-                    GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_SCREAM, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
+                    mGameObject->SetWorldPosition(mOgPosition);                    
                 }
                 else
                 {
                     float3 newPos = mGameObject->GetWorldPosition() + (mOgPosition - mGameObject->GetWorldPosition()).Normalized() * dt;
                     mGameObject->SetWorldPosition(newPos);
                 }
+            }
+            if (mChargeDurationTimer.Delay(WAKEUP_ANIMATION * 0.6) && scream)
+            {
+                scream = false;
+                GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_SCREAM, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
             }
             if (mPhaseShiftTimer.Delay(WAKEUP_ANIMATION * 2))
             {
@@ -211,6 +216,7 @@ void EnemyBoss::Update()
                 mInvulnerable = false;
                 GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
                 mCurrentState = EnemyState::IDLE;
+                mChargeDurationTimer.Reset();
                 if (mAnimationComponent) mAnimationComponent->SendTrigger("tIdle", mDeathTransitionDuration);
             }
             break;
