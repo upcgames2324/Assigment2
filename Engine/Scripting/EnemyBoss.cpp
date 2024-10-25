@@ -477,7 +477,7 @@ void EnemyBoss::Death()
         mDeathParticlesHead->SetEnabled(false);
         mDeathParticlesBody->SetEnabled(false);
         mDeathParticlesLegs->SetEnabled(false);
-        GameManager::GetInstance()->GetHud()->SetBossHealthBarEnabled(false);
+        //GameManager::GetInstance()->GetHud()->SetBossHealthBarEnabled(false);
         GameManager::GetInstance()->SetIsFightingBoss(false);
         mGameObject->SetEnabled(false);
         GameManager::GetInstance()->Victory();
