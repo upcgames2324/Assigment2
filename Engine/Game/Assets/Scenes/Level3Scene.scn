@@ -436,7 +436,7 @@
                             {
                                 "VariableName": "mAnimationTime",
                                 "MemberType": 1,
-                                "VariableData": 5.5
+                                "VariableData": 5.0
                             },
                             {
                                 "VariableName": "CAMERAS",
@@ -564,7 +564,7 @@
                             {
                                 "VariableName": "mFadeSpeed",
                                 "MemberType": 1,
-                                "VariableData": 0.009999999776482582
+                                "VariableData": 1.0
                             },
                             {
                                 "VariableName": "HUD",
@@ -9731,72 +9731,6 @@
                         "ComponentType": 0,
                         "IsEnabled": true,
                         "MeshID": 503749406,
-                        "MaterialID": 503749401,
-                        "HasSkinning": false,
-                        "PaletteOwner": 0,
-                        "InverseBindMatrices": []
-                    }
-                ]
-            },
-            {
-                "UID": 521742833,
-                "ParentUID": 947857587,
-                "Name": "BézierCurve.055",
-                "Enabled": true,
-                "Active": true,
-                "Translation": [
-                    7.277898788452148,
-                    19.605857849121095,
-                    0.11575865745544434
-                ],
-                "Rotation": [
-                    0.0,
-                    -1.0,
-                    0.0,
-                    1.6292068494294654e-7
-                ],
-                "Scale": [
-                    5.1293463706970219,
-                    5.1293463706970219,
-                    5.1293463706970219
-                ],
-                "Tag": "Untagged",
-                "PrefabUid": 0,
-                "OverridePrefab": false,
-                "Dynamic": false,
-                "Components": []
-            },
-            {
-                "UID": 524527673,
-                "ParentUID": 521742833,
-                "Name": "BézierCurve.055",
-                "Enabled": true,
-                "Active": true,
-                "Translation": [
-                    0.0,
-                    0.0,
-                    0.0
-                ],
-                "Rotation": [
-                    0.0,
-                    0.0,
-                    0.0,
-                    1.0
-                ],
-                "Scale": [
-                    1.0,
-                    1.0,
-                    1.0
-                ],
-                "Tag": "Untagged",
-                "PrefabUid": 0,
-                "OverridePrefab": false,
-                "Dynamic": false,
-                "Components": [
-                    {
-                        "ComponentType": 0,
-                        "IsEnabled": true,
-                        "MeshID": 503749407,
                         "MaterialID": 503749401,
                         "HasSkinning": false,
                         "PaletteOwner": 0,
@@ -20874,10 +20808,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    0.4564255177974701,
-                    -0.5507699251174927,
-                    0.5401967763900757,
-                    0.44765397906303408
+                    -0.7166898846626282,
+                    0.02588065154850483,
+                    -0.025381794199347497,
+                    -0.7028677463531494
                 ],
                 "Scale": [
                     1.0,
@@ -24360,10 +24294,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    -0.7078326940536499,
-                    -0.20540696382522584,
-                    -0.18846936523914338,
-                    0.6478577256202698
+                    0.476360023021698,
+                    -0.5612316131591797,
+                    -0.5134843587875366,
+                    -0.4364287257194519
                 ],
                 "Scale": [
                     0.3009020686149597,
@@ -24532,10 +24466,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    -0.6394674777984619,
-                    -0.36630764603614809,
-                    -0.33541595935821535,
-                    0.5855509638786316
+                    0.5950931310653687,
+                    -0.433200865983963,
+                    -0.3966817259788513,
+                    -0.5449240207672119
                 ],
                 "Scale": [
                     0.30108484625816347,
@@ -32264,8 +32198,8 @@
                 "Rotation": [
                     0.0,
                     0.0,
-                    -0.2582971751689911,
-                    -0.9736170768737793
+                    0.9968887567520142,
+                    -0.14527617394924165
                 ],
                 "Scale": [
                     1.0,

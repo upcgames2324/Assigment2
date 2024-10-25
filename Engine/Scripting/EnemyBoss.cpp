@@ -28,7 +28,7 @@
 #define IDLE_ANIMATION 40.0f / 24.0f
 #define PHASE_ANIMATION 5.0f
 #define DEATH_ANIMATION 4.4583f
-#define WAKEUP_ANIMATION 2.5f
+#define WAKEUP_ANIMATION 5.0f
 #define DEFENSE_START_ANIMATION 1.791f
 #define DEFENSE_END_ANIMATION 1.2f
 #define HIT_ANIMATION 1.25f
@@ -196,12 +196,12 @@ void EnemyBoss::Update()
                     mGameObject->SetWorldPosition(newPos);
                 }
             }
-            if (mChargeDurationTimer.Delay(WAKEUP_ANIMATION * 0.6) && scream)
+            if (mChargeDurationTimer.Delay(WAKEUP_ANIMATION * 0.3) && scream)
             {
                 scream = false;
                 GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_SCREAM, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
             }
-            if (mPhaseShiftTimer.Delay(WAKEUP_ANIMATION * 2))
+            if (mPhaseShiftTimer.Delay(WAKEUP_ANIMATION))
             {
                 GameManager::GetInstance()->GetHud()->SetBossHealthBarEnabled(true);
                 GameManager::GetInstance()->SetIsFightingBoss(true);

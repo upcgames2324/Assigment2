@@ -510,6 +510,7 @@ void CinematicCamera::InitAnimation(int animState)
 
 bool CinematicCamera::Fade(bool fadeOut)
 {
+    float dt = App->GetDt();
     if (mFadeGO)
     {
         mImage->SetColor(mColor);
@@ -524,7 +525,7 @@ bool CinematicCamera::Fade(bool fadeOut)
             
             if (mCounter < 1.0f)
             {
-                mCounter += mFadeSpeed;
+                mCounter += mFadeSpeed * dt;
                 mImage->SetAlpha(mCounter);
 
                 return false;
@@ -542,7 +543,7 @@ bool CinematicCamera::Fade(bool fadeOut)
             
             if (mCounter > 0.0f)
             {
-                mCounter -= mFadeSpeed;
+                mCounter -= mFadeSpeed * dt;
                 mImage->SetAlpha(mCounter);
 
                 return false;
