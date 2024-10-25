@@ -41,6 +41,7 @@ void LoreCollectible::Start()
 	mLoreText = &(mTextList[mLoreIndex]);
 	mTitleText = &(mTitleList[mLoreIndex]);
 	mSubtitleText = &(mSubtitleList[mLoreIndex]);
+	mCollectibleVFX->SetEnabled(true);
 }
 
 void LoreCollectible::Update()
@@ -49,7 +50,6 @@ void LoreCollectible::Update()
 		App->GetInput()->GetKey(Keys::Keys_ESCAPE) == KeyState::KEY_DOWN)
 	{
 		GameManager::GetInstance()->GetHud()->DisableCollectible();
-		mCollectibleVFX->SetEnabled(false);
 	}
 
 	if (mColliding) CheckDistance();
@@ -76,6 +76,7 @@ void LoreCollectible::OnCollisionEnter(CollisionData* collisionData)
 				if (mLoreText)GameManager::GetInstance()->GetHud()->SetCollectibleText(mLoreText->data(), mTitleText->data(), mSubtitleText->data());
 				GameManager::GetInstance()->GetHud()->SetScreen(SCREEN::COLLECTIBLE, true);
 			}
+			mCollectibleVFX->SetEnabled(false);
 		}
 	}
 }
