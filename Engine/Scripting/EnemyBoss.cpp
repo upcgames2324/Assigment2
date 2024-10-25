@@ -153,13 +153,7 @@ void EnemyBoss::Update()
         mInvulnerable = true;
         GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
         if (mAnimationComponent) mAnimationComponent->SendTrigger("tHit1", mDeathTransitionDuration);
-        if (mSpritesheet) 
-        {
-            mShieldGO->SetEnabled(true);
-            mSpritesheet->PlayAnimation();
-            mShieldDelay = 18.0f / mSpritesheet->GetFrameDuration();
-            mShieldTimer.Reset();
-        }
+        
         return;
     }
 
@@ -230,10 +224,13 @@ void EnemyBoss::Update()
                     if (mAnimationComponent) mAnimationComponent->SendTrigger("tDefenseStart", mDeathTransitionDuration);
                     ++phaseChange;
                     GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_SCREAM, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
-                }
-                if (mShieldTimer.Delay(mShieldDelay))
-                {
-                    if (mSpritesheet) mSpritesheet->PauseAnimation();
+                    if (mSpritesheet)
+                    {
+                        mShieldGO->SetEnabled(true);
+                        mSpritesheet->PlayAnimation();
+                        mShieldDelay = 18.0f / mSpritesheet->GetFrameDuration();
+                        mShieldTimer.Reset();
+                    }
                 }
                 break;
             case 1:
@@ -267,9 +264,12 @@ void EnemyBoss::Update()
                     }
                     ++phaseChange;
                     GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_AWAKE, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
+                    if (mSpritesheet) mSpritesheet->PlayAnimation();
+                    mShieldTimer.Reset();
                 }
                 break;            
             case 4:
+            case 5:
                 if (mPhaseShiftTimer.Delay(mPhaseShiftTime))
                 {
                     if (mAnimationComponent) 
@@ -279,15 +279,10 @@ void EnemyBoss::Update()
                     }
                     LookAt(mFront, BEAT_TIME);
                     phaseChange++;
-                    if (mSpritesheet) mSpritesheet->PlayAnimation();
-                    mShieldTimer.Reset();
+                    
                 }
-                break;
-            case 5:
                 if (mShieldTimer.Delay(mShieldDelay))
                 {
-                    mInvulnerable = false;
-                    GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
                     if (mSpritesheet)
                     {
                         mSpritesheet->StopAnimation();
@@ -297,6 +292,8 @@ void EnemyBoss::Update()
                 }
                 break;
             case 6:
+                mInvulnerable = false;
+                GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
                 mPhaseShiftTimer.Reset();
                 mCurrentState = EnemyState::IDLE;
                 phaseChange = 0;
