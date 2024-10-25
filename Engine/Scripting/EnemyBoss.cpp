@@ -281,7 +281,7 @@ void EnemyBoss::Update()
                     phaseChange++;
                     
                 }
-                if (mShieldTimer.Delay(mShieldDelay))
+                if (mShieldTimer.Delay(mShieldDelay) && mShieldGO->IsEnabled())
                 {
                     if (mSpritesheet)
                     {
