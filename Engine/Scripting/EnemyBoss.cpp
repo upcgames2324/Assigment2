@@ -935,5 +935,6 @@ void EnemyBoss::SwitchMaterial(int uuid)
         MeshRendererComponent* meshComponent = static_cast<MeshRendererComponent*>(mMeshComponents[i]);
         //meshComponent->SetEnableBaseColorTexture(false);
         meshComponent->SetMaterial(uuid);
+        meshComponent->CreateUniqueMaterial();
     }
 }
