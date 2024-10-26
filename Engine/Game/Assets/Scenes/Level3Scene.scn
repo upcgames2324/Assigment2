@@ -18925,7 +18925,8 @@
                         "Range": 18.0,
                         "CastShadow": true,
                         "Bias": 0.000019999999494757504,
-                        "isVolumetric": true
+                        "isVolumetric": true,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -18980,7 +18981,8 @@
                         "Range": 26.0,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": true
+                        "isVolumetric": true,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19035,7 +19037,8 @@
                         "Range": 26.0,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": true
+                        "isVolumetric": true,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19090,7 +19093,8 @@
                         "Range": 28.5,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": true
+                        "isVolumetric": true,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19280,7 +19284,8 @@
                         "Range": 19.5,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": false
+                        "isVolumetric": false,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19335,7 +19340,8 @@
                         "Range": 31.5,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": true
+                        "isVolumetric": true,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19390,7 +19396,8 @@
                         "Range": 32.5,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": true
+                        "isVolumetric": true,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19445,7 +19452,8 @@
                         "Range": 22.5,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": false
+                        "isVolumetric": false,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19500,7 +19508,8 @@
                         "Range": 28.5,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": false
+                        "isVolumetric": false,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19555,7 +19564,8 @@
                         "Range": 26.0,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": true
+                        "isVolumetric": true,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19610,7 +19620,8 @@
                         "Range": 26.0,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": false
+                        "isVolumetric": false,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19665,7 +19676,8 @@
                         "Range": 26.0,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": false
+                        "isVolumetric": false,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -19720,7 +19732,8 @@
                         "Range": 26.0,
                         "CastShadow": true,
                         "Bias": 0.000039999998989515009,
-                        "isVolumetric": false
+                        "isVolumetric": false,
+                        "PriorityShadow": false
                     }
                 ]
             },
@@ -20808,10 +20821,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    0.31668901443481448,
-                    -0.6444149017333984,
-                    0.6318866014480591,
-                    0.31053149700164797
+                    0.3141533434391022,
+                    -0.6520469188690186,
+                    0.6391187906265259,
+                    0.30793455243110659
                 ],
                 "Scale": [
                     1.0,
@@ -24010,9 +24023,9 @@
                 "Enabled": true,
                 "Active": true,
                 "Translation": [
-                    75.33999633789063,
+                    73.06591033935547,
                     -0.10000000149011612,
-                    -0.3472643792629242
+                    0.0873483419418335
                 ],
                 "Rotation": [
                     0.0,
@@ -24294,10 +24307,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    -0.7258020639419556,
-                    -0.12072157859802246,
-                    -0.11098404973745346,
-                    0.6645134091377258
+                    0.723834753036499,
+                    0.11748737096786499,
+                    0.10805082321166992,
+                    -0.662811815738678
                 ],
                 "Scale": [
                     0.3009020686149597,
@@ -24466,10 +24479,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    -0.6768890619277954,
-                    -0.28825217485427859,
-                    -0.26400890946388247,
-                    0.6199604272842407
+                    0.6757090091705322,
+                    0.2846583425998688,
+                    0.26075229048728945,
+                    -0.6190189123153687
                 ],
                 "Scale": [
                     0.30108484625816347,
@@ -32198,8 +32211,8 @@
                 "Rotation": [
                     0.0,
                     0.0,
-                    -0.6718310117721558,
-                    -0.7510541677474976
+                    -0.6835211515426636,
+                    -0.7404844164848328
                 ],
                 "Scale": [
                     1.0,
@@ -69036,6 +69049,96 @@
                         "Alignment": 1,
                         "FontName": "Assets\\Fonts\\Akshar-Regular.ttf",
                         "FontSize": 16
+                    }
+                ]
+            },
+            {
+                "UID": 1356567372,
+                "ParentUID": 1,
+                "Name": "FenceWallR",
+                "Enabled": true,
+                "Active": true,
+                "Translation": [
+                    0.06612032651901245,
+                    -0.5970684289932251,
+                    -13.575100898742676
+                ],
+                "Rotation": [
+                    5.958336046774093e-8,
+                    -0.4931829273700714,
+                    -1.64679541114765e-8,
+                    0.8699256181716919
+                ],
+                "Scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "Tag": "Door",
+                "PrefabUid": 0,
+                "OverridePrefab": false,
+                "Dynamic": false,
+                "Components": [
+                    {
+                        "ComponentType": 17,
+                        "IsEnabled": true,
+                        "Center": [
+                            0.0,
+                            0.4000000059604645,
+                            0.0
+                        ],
+                        "Size": [
+                            0.30000001192092898,
+                            0.4000000059604645,
+                            -4.199999809265137
+                        ],
+                        "ColliderType": 0,
+                        "FreezeRotation": false
+                    }
+                ]
+            },
+            {
+                "UID": 1324283566,
+                "ParentUID": 1,
+                "Name": "FenceWallL",
+                "Enabled": true,
+                "Active": true,
+                "Translation": [
+                    -0.08562100678682327,
+                    -0.6869291067123413,
+                    14.087743759155274
+                ],
+                "Rotation": [
+                    0.0,
+                    -0.2680791914463043,
+                    0.0,
+                    0.9633969068527222
+                ],
+                "Scale": [
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "Tag": "Door",
+                "PrefabUid": 0,
+                "OverridePrefab": false,
+                "Dynamic": false,
+                "Components": [
+                    {
+                        "ComponentType": 17,
+                        "IsEnabled": true,
+                        "Center": [
+                            0.0,
+                            0.0,
+                            0.0
+                        ],
+                        "Size": [
+                            2.6500000953674318,
+                            0.6499999761581421,
+                            1.0
+                        ],
+                        "ColliderType": 0,
+                        "FreezeRotation": false
                     }
                 ]
             }
