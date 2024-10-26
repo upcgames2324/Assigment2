@@ -22,7 +22,7 @@ public:
     void Awake() override;
     void Start() override;
     void Update() override;
-    bool GetPlayingCinematic() { return mPlayingCinematic; }
+    bool GetPlayingCinematic() const { return mPlayingCinematic; }
 
 private:
     void StartCinematic(GameObject* cameraObject, GameObject* dummy, BattleArea* battleArea, int animState);
@@ -87,7 +87,7 @@ private:
 
     float mCounter = 0.0f;
     float3 mColor = float3(0.0f, 0.0f, 0.0f);
-    float mFadeSpeed = 0.045f;
+    float mFadeSpeed = 1.0f;
 
     bool mMoveCompleted = false;
     bool mPlayingCinematic = false;
@@ -106,4 +106,6 @@ private:
 
     GameObject* mSkipGO = nullptr;
     ButtonComponent* mSkipBtn = nullptr;
+
+    float3 mPlayerOgPos = float3::zero;
 };

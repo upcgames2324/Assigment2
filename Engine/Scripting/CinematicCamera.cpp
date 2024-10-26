@@ -225,6 +225,10 @@ void CinematicCamera::StartCinematic(GameObject* cameraObject, GameObject* dummy
             else
             {
                 mTargetPosition = ((dummy->GetWorldPosition()) - ((mCinematicCameraGO->GetFront()) * mDistanceToEnemy));
+                if (mPlayer)
+                {
+                    mPlayerOgPos = mPlayer->GetWorldPosition();
+                }
             }
             
             mCinematicCameraGO->Translate(-(mCinematicCameraGO->GetFront()) * mDistanceToEnemy);
@@ -273,10 +277,10 @@ void CinematicCamera::UpdateCinematic(GameObject* dummy, BattleArea* battleArea)
                     {
                         ActivateDummy(mDummy, true);
                     }
-                    
+                                        
                     HandleCameraMovement();
                 }
-
+                
                 if (mTimer.Delay(mAnimationTime))
                 {
                     if (mAnimationComponent)
@@ -290,10 +294,7 @@ void CinematicCamera::UpdateCinematic(GameObject* dummy, BattleArea* battleArea)
             }
             else
             {
-                if (HandleFadeOut())
-                {
-                    mPlayingCinematic = false;
-                }
+                HandleFadeOut();
             }
         }
         else
@@ -315,7 +316,6 @@ void CinematicCamera::UpdateCinematic(GameObject* dummy, BattleArea* battleArea)
         if (Fade(false))
         {
             mEscape = false;
-            mPlayingCinematic = false;
         }
 
         return;
@@ -344,6 +344,11 @@ bool CinematicCamera::HandleFadeIn()
             {
                 ActivateCamera(true);
                 mPlayerCamera->SetEnabled(false);
+            }
+            if (mDummy->GetName() == "FinalBoss" && mPlayer)
+            {
+                //Locates the player away from the scene
+                mPlayer->SetWorldPosition(mPlayerOgPos + float3::unitX * 50);
             }
 
             mCinematicCamera = (CameraComponent*)mCinematicCameraGO->GetComponent(ComponentType::CAMERA);
@@ -434,6 +439,7 @@ void CinematicCamera::HandleEscape()
 
 void CinematicCamera::EndCinematic()
 {
+    mPlayingCinematic = false;
     if (mPlayerController)
     {
         mPlayerController->EnableLaser(true);
@@ -469,6 +475,12 @@ void CinematicCamera::EndCinematic()
             //mPlayer->SetWorldPosition(position);
         }
     }
+
+    if (App->GetScene()->GetName() == "Level3Scene" && mPlayer)
+    {
+        //Locates the player in a correct position behind the doors
+        mPlayer->SetWorldPosition(mPlayerOgPos);
+    }
 }
 
 void CinematicCamera::InitAnimation(int animState)
@@ -495,6 +507,7 @@ void CinematicCamera::InitAnimation(int animState)
 
 bool CinematicCamera::Fade(bool fadeOut)
 {
+    float dt = App->GetDt();
     if (mFadeGO)
     {
         mImage->SetColor(mColor);
@@ -509,7 +522,7 @@ bool CinematicCamera::Fade(bool fadeOut)
             
             if (mCounter < 1.0f)
             {
-                mCounter += mFadeSpeed;
+                mCounter += mFadeSpeed * dt;
                 mImage->SetAlpha(mCounter);
 
                 return false;
@@ -527,7 +540,7 @@ bool CinematicCamera::Fade(bool fadeOut)
             
             if (mCounter > 0.0f)
             {
-                mCounter -= mFadeSpeed;
+                mCounter -= mFadeSpeed * dt;
                 mImage->SetAlpha(mCounter);
 
                 return false;

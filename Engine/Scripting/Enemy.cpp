@@ -36,7 +36,7 @@ void Enemy::Start()
 	mGameObject->GetComponentsInChildren(ComponentType::MESHRENDERER, mMeshComponents);
 	for (unsigned int i = 0; i < mMeshComponents.size(); ++i)
 	{
-		static_cast<MeshRendererComponent*>(mMeshComponents[i])->CreateUniqueMaterial();
+		if (mGameObject->GetName() != "FinalBoss") static_cast<MeshRendererComponent*>(mMeshComponents[i])->CreateUniqueMaterial();
 		const ResourceMaterial* material = static_cast<MeshRendererComponent*>(mMeshComponents[i])->GetResourceMaterial();
 		mOgColors.push_back(material->GetBaseColorFactor());
 	}

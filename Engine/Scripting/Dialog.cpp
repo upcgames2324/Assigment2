@@ -274,13 +274,14 @@ void Dialog::StartDialog()
 
 void Dialog::EnableDialog()
 {
+    mCompletedGO->SetEnabled(false);
+
     if (!GameManager::GetInstance()->IsDialogueActive()) 
     {
         FinishDialogue();
         return;
     }
     
-    mCompletedGO->SetEnabled(false);
     mStartTimeout = false;
 
     mTopGO->SetEnabled(true);

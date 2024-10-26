@@ -18,6 +18,7 @@
 #include "BossBattleArea.h"
 #include "ImageComponent.h"
 #include <algorithm>
+#include "ModuleResource.h"
 
 
 #define LASER_WIND_UP 2.625f
@@ -27,7 +28,7 @@
 #define IDLE_ANIMATION 40.0f / 24.0f
 #define PHASE_ANIMATION 5.0f
 #define DEATH_ANIMATION 4.4583f
-#define WAKEUP_ANIMATION 2.5f
+#define WAKEUP_ANIMATION 5.0f
 #define DEFENSE_START_ANIMATION 1.791f
 #define DEFENSE_END_ANIMATION 1.2f
 #define HIT_ANIMATION 1.25f
@@ -38,13 +39,14 @@ CREATE(EnemyBoss) {
     CLASS(owner);
     SEPARATOR("STATS");
     MEMBER(MemberType::FLOAT, mMaxHealth);
-    MEMBER(MemberType::FLOAT, mSpeed);
     MEMBER(MemberType::FLOAT, mAttackDistance);
     MEMBER(MemberType::FLOAT, mAttackCoolDown);
     MEMBER(MemberType::FLOAT, mAttackSequenceCooldown);
     MEMBER(MemberType::FLOAT, mPhaseShiftTime);
     MEMBER(MemberType::FLOAT, mPhase1Hp);
     MEMBER(MemberType::FLOAT, mPhase2Hp);
+    MEMBER(MemberType::FLOAT, mSpawnOffsetY);
+    MEMBER(MemberType::FLOAT, mSpeed);
     MEMBER(MemberType::GAMEOBJECT, mShieldGO);
     SEPARATOR("AREA POSITIONS");
     MEMBER(MemberType::GAMEOBJECT, mAreas[0]);
@@ -81,6 +83,8 @@ void EnemyBoss::Start()
     mCurrentState = EnemyState::DOWN;
     mFront = mGameObject->GetFront();
     mRotationSpeed = 0.0f;
+    mOgPosition = mGameObject->GetWorldPosition();
+    mGameObject->SetWorldPosition(mOgPosition + float3::unitY * mSpawnOffsetY);
 
     for (const char* prefab : mTemplateNames)
     {
@@ -126,6 +130,7 @@ void EnemyBoss::Update()
     if (GameManager::GetInstance()->GetHud()) GameManager::GetInstance()->GetHud()->SetBossHealth(mHealth / mMaxHealth);
     float t = HIT_ANIMATION;
     static short phaseChange = 0;
+    static bool scream = true;
     Rotate();
 
     if ((mStage == 1 && mHealth / mMaxHealth < mPhase2Hp) || (mStage == 0 && mHealth / mMaxHealth < mPhase1Hp))
@@ -133,20 +138,22 @@ void EnemyBoss::Update()
         //Phase change
         phaseChange = 0;
         ++mStage;
-        if (mStage == 1) mHealth = mMaxHealth * mPhase1Hp;
-        else if (mStage == 2) mHealth = mMaxHealth * mPhase2Hp;
+        if (mStage == 1)
+        {
+            mHealth = mMaxHealth * mPhase1Hp;
+            SwitchMaterial(mPhase2MatId);
+        }
+        else if (mStage == 2)
+        {
+            mHealth = mMaxHealth * mPhase2Hp;
+            SwitchMaterial(mPhase3MatId);
+        }
         mCurrentState = EnemyState::PHASE;
         InterruptAttacks();
         mInvulnerable = true;
         GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
         if (mAnimationComponent) mAnimationComponent->SendTrigger("tHit1", mDeathTransitionDuration);
-        if (mSpritesheet) 
-        {
-            mShieldGO->SetEnabled(true);
-            mSpritesheet->PlayAnimation();
-            mShieldDelay = 18.0f / mSpritesheet->GetFrameDuration();
-            mShieldTimer.Reset();
-        }
+        
         return;
     }
 
@@ -169,6 +176,44 @@ void EnemyBoss::Update()
 
         switch (mCurrentState)
         {
+        case EnemyState::DOWN:
+            if (mWakeUp)
+            {
+                mCurrentState = EnemyState::WAKE;                
+            }
+            break;
+        case EnemyState::WAKE:
+            if (!mGameObject->GetWorldPosition().Equals(mOgPosition))
+            {
+                float dt = App->GetDt() * mSpeed;
+                if (dt * dt >= mOgPosition.DistanceSq(mGameObject->GetWorldPosition()))
+                {
+                    mGameObject->SetWorldPosition(mOgPosition);                    
+                }
+                else
+                {
+                    float3 newPos = mGameObject->GetWorldPosition() + (mOgPosition - mGameObject->GetWorldPosition()).Normalized() * dt;
+                    mGameObject->SetWorldPosition(newPos);
+                }
+            }
+            if (mChargeDurationTimer.Delay(WAKEUP_ANIMATION * 0.3) && scream)
+            {
+                scream = false;
+                GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_SCREAM, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
+            }
+            if (mPhaseShiftTimer.Delay(WAKEUP_ANIMATION))
+            {
+                GameManager::GetInstance()->GetHud()->SetBossHealthBarEnabled(true);
+                GameManager::GetInstance()->SetIsFightingBoss(true);
+                mAnimationComponent->SetAnimSpeed(1.0f);
+                mWakeUp = false;
+                mInvulnerable = false;
+                GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
+                mCurrentState = EnemyState::IDLE;
+                mChargeDurationTimer.Reset();
+                if (mAnimationComponent) mAnimationComponent->SendTrigger("tIdle", mDeathTransitionDuration);
+            }
+            break;
         case EnemyState::PHASE:
             
             switch (phaseChange)
@@ -179,10 +224,13 @@ void EnemyBoss::Update()
                     if (mAnimationComponent) mAnimationComponent->SendTrigger("tDefenseStart", mDeathTransitionDuration);
                     ++phaseChange;
                     GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_SCREAM, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
-                }
-                if (mShieldTimer.Delay(mShieldDelay))
-                {
-                    if (mSpritesheet) mSpritesheet->PauseAnimation();
+                    if (mSpritesheet)
+                    {
+                        mShieldGO->SetEnabled(true);
+                        mSpritesheet->PlayAnimation();
+                        mShieldDelay = 18.0f / mSpritesheet->GetFrameDuration();
+                        mShieldTimer.Reset();
+                    }
                 }
                 break;
             case 1:
@@ -204,46 +252,51 @@ void EnemyBoss::Update()
                     if (mAnimationComponent) mAnimationComponent->SendTrigger("tDefenseEnd", 1.0f);
                     ++phaseChange;
                     mWakeUp = false;
-                    mInvulnerable = false;
-                    GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
-                    if (mSpritesheet) mSpritesheet->PlayAnimation();
-                    mShieldTimer.Reset();
                 }
                 break;
             case 3:
                 if (mPhaseShiftTimer.Delay(DEFENSE_END_ANIMATION))
                 {
-
-                    if (mAnimationComponent) mAnimationComponent->SendTrigger("tPhase", mDeathTransitionDuration);
+                    if (mAnimationComponent) 
+                    {
+                        mAnimationComponent->SendTrigger("tPhase", mDeathTransitionDuration);
+                        mAnimationComponent->SetAnimSpeed(PHASE_ANIMATION / mPhaseShiftTime);
+                    }
                     ++phaseChange;
                     GameManager::GetInstance()->GetAudio()->PlayOneShot(SFX::BOSS_AWAKE, GameManager::GetInstance()->GetPlayer()->GetWorldPosition());
+                    if (mSpritesheet) mSpritesheet->PlayAnimation();
+                    mShieldTimer.Reset();
                 }
-                if (mShieldTimer.Delay(mShieldDelay))
-                {
-                    if (mSpritesheet)
-                    {
-                        mSpritesheet->StopAnimation();
-                        mShieldGO->SetEnabled(false);
-                    }
-                }
-                break;
+                break;            
             case 4:
-                if (mPhaseShiftTimer.Delay(PHASE_ANIMATION))
+            case 5:
+                if (mPhaseShiftTimer.Delay(mPhaseShiftTime))
                 {
-                    if (mAnimationComponent) mAnimationComponent->SendTrigger("tIdle", mDeathTransitionDuration);
-                    mCurrentState = EnemyState::IDLE;
+                    if (mAnimationComponent) 
+                    {
+                        mAnimationComponent->SendTrigger("tIdle", mDeathTransitionDuration);
+                        mAnimationComponent->SetAnimSpeed(1.0f);
+                    }
                     LookAt(mFront, BEAT_TIME);
-                    phaseChange = 0;
+                    phaseChange++;
+                    
                 }
-                if (mShieldTimer.Delay(mShieldDelay))
+                if (mShieldTimer.Delay(mShieldDelay) && mShieldGO->IsEnabled())
                 {
                     if (mSpritesheet)
                     {
                         mSpritesheet->StopAnimation();
                         mShieldGO->SetEnabled(false);
                     }
+                    phaseChange++;
                 }
                 break;
+            case 6:
+                mInvulnerable = false;
+                GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
+                mPhaseShiftTimer.Reset();
+                mCurrentState = EnemyState::IDLE;
+                phaseChange = 0;
             }
            
             break;
@@ -260,24 +313,13 @@ void EnemyBoss::Update()
             }
             break;
         case EnemyState::CHARGING_LASER:
-            if (mPhaseShiftTimer.Delay(2.625f))
+            if (mPhaseShiftTimer.Delay(LASER_WIND_UP))
             {
                 mCurrentState = EnemyState::ATTACK;
                 if (mAnimationComponent) mAnimationComponent->SendTrigger("tLaser", mAttackTransitionDuration);
             }
             break;
-        case EnemyState::DOWN:
-            if (mWakeUp)
-            {
-                GameManager::GetInstance()->GetHud()->SetBossHealthBarEnabled(true);
-                GameManager::GetInstance()->SetIsFightingBoss(true);
-                mAnimationComponent->SetAnimSpeed(1.0f);
-                mWakeUp = false;
-                mInvulnerable = false;
-                GameManager::GetInstance()->GetHud()->SetBossInvulnerable(mInvulnerable);
-                if (mAnimationComponent) mAnimationComponent->SendTrigger("tIdle", mDeathTransitionDuration);
-                mCurrentState = EnemyState::IDLE;
-            }
+        
         }
     }
 
@@ -304,6 +346,7 @@ void EnemyBoss::Update()
             break;
         }
     }
+        
     CheckHitEffect();
 }
 
@@ -923,5 +966,14 @@ void EnemyBoss::InterruptAttacks()
     for (GameObject* bombGO : mTemplates)
     {
         bombGO->SetEnabled(false);
+    }
+}
+
+void EnemyBoss::SwitchMaterial(int uuid)
+{
+    for (size_t i = 0; i < mMeshComponents.size(); i++)
+    {
+        MeshRendererComponent* meshComponent = static_cast<MeshRendererComponent*>(mMeshComponents[i]);
+        meshComponent->SetMaterial(uuid);
     }
 }

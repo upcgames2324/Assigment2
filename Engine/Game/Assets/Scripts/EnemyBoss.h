@@ -49,6 +49,7 @@ private:
 	void SetupBomb(GameObject* bombGO, const math::float3& position);
 	void Rotate();
 	void InterruptAttacks();
+	void SwitchMaterial(int uuid);
 
 	void CheckHitEffect() override;
 	void  Death() override;
@@ -61,6 +62,8 @@ private:
 	float mPhase2Hp = 0.3f;
 	bool mWakeUp = false;
 	bool mInvulnerable = true;
+	float mSpawnOffsetY = 0.0f;
+	float3 mOgPosition = float3::zero;
 
 	GameObject* mShieldGO = nullptr;
 	ImageComponent* mSpritesheet = nullptr;
@@ -104,6 +107,7 @@ private:
 	GameObject* mDeathParticlesHead = nullptr;
 	GameObject* mDeathParticlesBody = nullptr;
 	GameObject* mDeathParticlesLegs = nullptr;
-
+	const int mPhase2MatId = 1639454952;
+	const int mPhase3MatId = 577614609;
 };
 
