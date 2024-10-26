@@ -121,6 +121,7 @@ CREATE(HudController)
     MEMBER(MemberType::GAMEOBJECT, mControllerDialogueNextBinding);
     MEMBER(MemberType::GAMEOBJECT, mControllerDialogueSkipBinding);
     MEMBER(MemberType::GAMEOBJECT, mControllerVideoBinding);
+    MEMBER(MemberType::GAMEOBJECT, mControllerFinalVideoBinding);
     MEMBER(MemberType::GAMEOBJECT, mControllerCollectibleOpenBinding);
     MEMBER(MemberType::GAMEOBJECT, mControllerCollectibleCloseBinding);
     MEMBER(MemberType::GAMEOBJECT, mControllerMenuSelectBinding);
@@ -134,6 +135,7 @@ CREATE(HudController)
     MEMBER(MemberType::GAMEOBJECT, mKeyboardDialogueNextBinding);
     MEMBER(MemberType::GAMEOBJECT, mKeyboardDialogueSkipBinding);
     MEMBER(MemberType::GAMEOBJECT, mKeyboardVideoBinding);
+    MEMBER(MemberType::GAMEOBJECT, mKeyboardFinalVideoBinding);
     MEMBER(MemberType::GAMEOBJECT, mKeyboardCollectibleOpenBinding);
     MEMBER(MemberType::GAMEOBJECT, mKeyboardCollectibleCloseBinding);
     MEMBER(MemberType::GAMEOBJECT, mKeyboardMenuSelectBinding);
@@ -532,16 +534,19 @@ void HudController::PlayVideoAssociatedAudio(const char* videoName)
 
     if (strcmp(videoName, "Chrysalis_intro.mp4") == 0)
     {
+        GameManager::GetInstance()->PauseBackgroundAudio(false);
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::INTRO_VIDEO);
         GameManager::GetInstance()->GetAudio()->SetLoop(BGM::INTRO_VIDEO, mVideoAudio, isVideoLoop);
     }
     else if (strcmp(videoName, "Video_AFTER_Boss.mp4") == 0)
     {
+        GameManager::GetInstance()->PauseBackgroundAudio(false);
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::AFTER_BOSS);
         GameManager::GetInstance()->GetAudio()->SetLoop(BGM::AFTER_BOSS, mVideoAudio, isVideoLoop);
     }
     else if (strcmp(videoName, "Video_BEFORE_Boss.mp4") == 0)
     {
+        GameManager::GetInstance()->PauseBackgroundAudio(true);
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::BEFORE_BOSS);
         GameManager::GetInstance()->GetAudio()->SetLoop(BGM::BEFORE_BOSS, mVideoAudio, isVideoLoop);
     }
@@ -1072,6 +1077,7 @@ void HudController::ChangeBindings(bool controller)
         if (mControllerDialogueNextBinding) mControllerDialogueNextBinding->SetEnabled(true);
         if (mControllerDialogueSkipBinding) mControllerDialogueSkipBinding->SetEnabled(true);
         if (mControllerVideoBinding) mControllerVideoBinding->SetEnabled(true);
+        if (mControllerFinalVideoBinding) mControllerFinalVideoBinding->SetEnabled(true);
         if (mControllerCollectibleOpenBinding) mControllerCollectibleOpenBinding->SetEnabled(true);
         if (mControllerCollectibleCloseBinding) mControllerCollectibleCloseBinding->SetEnabled(true);
         if (mControllerMenuSelectBinding) mControllerMenuSelectBinding->SetEnabled(true);
@@ -1084,6 +1090,7 @@ void HudController::ChangeBindings(bool controller)
         if (mKeyboardDialogueNextBinding) mKeyboardDialogueNextBinding->SetEnabled(false);
         if (mKeyboardDialogueSkipBinding)  mKeyboardDialogueSkipBinding->SetEnabled(false);
         if (mKeyboardVideoBinding)  mKeyboardVideoBinding->SetEnabled(false);
+        if (mKeyboardFinalVideoBinding) mKeyboardFinalVideoBinding->SetEnabled(false);
         if (mKeyboardCollectibleOpenBinding)  mKeyboardCollectibleOpenBinding->SetEnabled(false);
         if (mKeyboardCollectibleCloseBinding)  mKeyboardCollectibleCloseBinding->SetEnabled(false);
         if (mKeyboardMenuSelectBinding)  mKeyboardMenuSelectBinding->SetEnabled(false);
@@ -1099,6 +1106,7 @@ void HudController::ChangeBindings(bool controller)
         if (mControllerDialogueNextBinding) mControllerDialogueNextBinding->SetEnabled(false);
         if (mControllerDialogueSkipBinding) mControllerDialogueSkipBinding->SetEnabled(false);
         if (mControllerVideoBinding) mControllerVideoBinding->SetEnabled(false);
+        if (mControllerFinalVideoBinding) mControllerFinalVideoBinding->SetEnabled(false);
         if (mControllerCollectibleOpenBinding) mControllerCollectibleOpenBinding->SetEnabled(false);
         if (mControllerCollectibleCloseBinding) mControllerCollectibleCloseBinding->SetEnabled(false);
         if (mControllerMenuSelectBinding) mControllerMenuSelectBinding->SetEnabled(false);
@@ -1111,6 +1119,7 @@ void HudController::ChangeBindings(bool controller)
         if (mKeyboardDialogueNextBinding) mKeyboardDialogueNextBinding->SetEnabled(true);
         if (mKeyboardDialogueSkipBinding)  mKeyboardDialogueSkipBinding->SetEnabled(true);
         if (mKeyboardVideoBinding)  mKeyboardVideoBinding->SetEnabled(true);
+        if (mKeyboardFinalVideoBinding) mKeyboardFinalVideoBinding->SetEnabled(true);
         if (mKeyboardCollectibleOpenBinding)  mKeyboardCollectibleOpenBinding->SetEnabled(true);
         if (mKeyboardCollectibleCloseBinding)  mKeyboardCollectibleCloseBinding->SetEnabled(true);
         if (mKeyboardMenuSelectBinding)  mKeyboardMenuSelectBinding->SetEnabled(true);

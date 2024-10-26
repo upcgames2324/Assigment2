@@ -102,13 +102,6 @@ private:
             "Yeah, you are right, ... it's just... this situation is starting to make me anxious..."
         },
         {
-            "Elios, you should get ready for what's down here.",
-            "What do you mean?",
-            "Everyone is already dead",
-            "Everyone? Did the robots did it?.",
-            "No... Something down here has *affected* the staff, changed them. They are no longer humans Elios. And they are way more dangerous than the robots."
-        },
-        {
 
             "Did you manage to beat them all?",
             "Yeah, they were tough but I managed, however I don't think anyone else have survived...",

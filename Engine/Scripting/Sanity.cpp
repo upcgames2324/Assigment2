@@ -152,7 +152,7 @@ void Sanity::Start()
 
 void Sanity::Update()
 {
-    if (mEnd && mEndTimer.Delay(1.5f)) FinishSanity();
+    if (mEnd && mEndTimer.Delay(0.0f)) FinishSanity();
     //else if (mEnd) UpdateSelected();
 
     Controls();

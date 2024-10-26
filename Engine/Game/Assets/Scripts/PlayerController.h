@@ -78,6 +78,7 @@ public:
     void SetIsAnimationPlaying(bool state);
     void RestartAnimationState();
     void DashLookAtFront();
+    void DisableDashEffect();
     std::string GetLowerAnimState() const;
 
     void MoveToPosition(float3 position);
