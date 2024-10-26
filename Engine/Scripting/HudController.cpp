@@ -475,6 +475,7 @@ void HudController::WinUpdate()
     {
         if (mFinalVideoComponent && !mIsFinalVideoPlaying)
         {
+            GameManager::GetInstance()->SetPaused(true, false);
             mFinalVideoGO->SetEnabled(true);
             mFinalVideoComponent->Play();
             PlayVideoAssociatedAudio(mFinalVideoComponent->GetName());

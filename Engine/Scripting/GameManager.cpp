@@ -220,7 +220,7 @@ void GameManager::SetActiveBattleArea(BattleArea* activeArea)
 
 void GameManager::Victory()
 {
-    mPaused = true;
+    //mPaused = true;
 
     mHudController->SetScreen(SCREEN::WIN, true);
 

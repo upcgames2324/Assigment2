@@ -318,13 +318,20 @@ void ModuleAudio::Release(FMOD::Channel* channel)
 	}
 }
 
-void ModuleAudio::Stop(const FMOD::Studio::EventDescription* eventDescription, const int id)
+void ModuleAudio::Stop(const FMOD::Studio::EventDescription* eventDescription, const int id, bool fadeout)
 {
 	FMOD::Studio::EventInstance* eventInstance = FindEventInstance(eventDescription, id);
 
 	if (eventInstance != nullptr)
 	{
-		eventInstance->stop(FMOD_STUDIO_STOP_IMMEDIATE);
+		if (!fadeout)
+		{
+			eventInstance->stop(FMOD_STUDIO_STOP_IMMEDIATE);
+		}
+		else
+		{
+			eventInstance->stop(FMOD_STUDIO_STOP_ALLOWFADEOUT);
+		}
 	}
 	else 
 	{

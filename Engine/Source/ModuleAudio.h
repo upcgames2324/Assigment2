@@ -56,7 +56,7 @@ public:
 	void Pause(const FMOD::Studio::EventDescription* eventDescription, const int id, bool pause);
 
 	// Kill instance
-	void Stop(const FMOD::Studio::EventDescription* eventDescription, const int id);
+	void Stop(const FMOD::Studio::EventDescription* eventDescription, const int id, bool fadeout = false);
 	void Release(const FMOD::Studio::EventDescription* eventDescription, const int id);
 	void UpdatePendingReleases();
 
