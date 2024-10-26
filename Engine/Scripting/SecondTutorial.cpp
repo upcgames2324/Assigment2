@@ -149,7 +149,7 @@ void SecondTutorial::Tutorial()
         case 3:
             mShootTutorialCon->SetEnabled(false);
             mShootTutorial->SetEnabled(false);
-            mSecondaryTutorial->SetEnabled(true);
+            mSecondaryTutorialCon->SetEnabled(true);
             GameManager::GetInstance()->UnlockSecondary();
             break;
         case 2:
