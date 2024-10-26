@@ -1,6 +1,7 @@
 
 # Helheim-Engine
-This project is a Game Engine made for UPC videogames Master´s Degree
+HelheimEngine is a custom-built game engine developed in C++ and OpenGL for Chrysalis. Built specifically for the needs of Chrysalis, HelheimEngine showcases a balance between technical innovation and efficiency, delivering a powerful solution to meet the project's demanding requirements.
+
 
 - [Game Engine Github Repository](https://github.com/RollingBarrel/Helheim-Engine)
 
@@ -8,7 +9,7 @@ This project is a Game Engine made for UPC videogames Master´s Degree
 
 Download Zip file in the latest [release](https://github.com/RollingBarrel/Helheim-Engine/releases), unzip it and execute the Engine.exe file.
 
-## RollingB Barrel Team
+## Rolling Barrel Team
 **Programmers**
 - Jordi Joan Alonso Llovet [LinkedIn](https://www.linkedin.com/in/jordi-alonso-llovet-99bb01b5/)
 - Jordi Bach Balcells [LinkedIn](https://www.linkedin.com/in/jordi-bach-822510214/)
@@ -21,8 +22,8 @@ Download Zip file in the latest [release](https://github.com/RollingBarrel/Helhe
 - Carlos García Segura [LinkedIn](https://www.linkedin.com/in/carlosgs1999/)
 - Xinyu Jiang [LinkedIn](https://www.linkedin.com/in/jiang-xinyu-b39a06200/)
 - David Longarón Lorente [LinkedIn](https://www.linkedin.com/in/davidlongaron/)
-- Giovanni Matera [LinkedIn](https://github.com/RollingBarrel/Helheim-Engine/releases)
-- Oscar Mellado Arbelo [LinkedIn](https://github.com/RollingBarrel/Helheim-Engine/releases)
+- Giovanni Matera [LinkedIn]()
+- Oscar Mellado Arbelo [LinkedIn]()
 - Adrián Mirabel Martínez [LinkedIn](https://www.linkedin.com/in/a-mirabel/)
 - Jordi Nieto Maldonado [LinkedIn](https://www.linkedin.com/in/jordi-nieto-maldonado-b84327144/)
 - Oscar Pellicé Mas [LinkedIn](https://www.linkedin.com/in/oscar-pellice-mas/)
