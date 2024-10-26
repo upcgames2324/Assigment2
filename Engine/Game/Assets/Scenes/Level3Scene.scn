@@ -254,7 +254,7 @@
                     {
                         "ComponentType": 6,
                         "IsEnabled": true,
-                        "AspectRatio": 1.8978978395462037,
+                        "AspectRatio": 1.8176528215408326,
                         "FieldOfView": 90.0,
                         "NearPlane": 0.009999999776482582,
                         "FarPlane": 1000.0,
@@ -20821,10 +20821,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    0.3141533434391022,
-                    -0.6520469188690186,
-                    0.6391187906265259,
-                    0.30793455243110659
+                    0.6991532444953919,
+                    -0.1870480179786682,
+                    0.18333223462104798,
+                    0.6852990984916687
                 ],
                 "Scale": [
                     1.0,
@@ -24307,10 +24307,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    0.723834753036499,
-                    0.11748737096786499,
-                    0.10805082321166992,
-                    -0.662811815738678
+                    -0.6089295744895935,
+                    -0.40869346261024477,
+                    -0.374660849571228,
+                    0.5573918223381043
                 ],
                 "Scale": [
                     0.3009020686149597,
@@ -24479,10 +24479,10 @@
                     0.0
                 ],
                 "Rotation": [
-                    0.6757090091705322,
-                    0.2846583425998688,
-                    0.26075229048728945,
-                    -0.6190189123153687
+                    -0.4954574406147003,
+                    -0.5405714511871338,
+                    -0.4951905608177185,
+                    0.4538946747779846
                 ],
                 "Scale": [
                     0.30108484625816347,
@@ -32211,8 +32211,8 @@
                 "Rotation": [
                     0.0,
                     0.0,
-                    -0.6835211515426636,
-                    -0.7404844164848328
+                    0.8343692421913147,
+                    -0.5651988387107849
                 ],
                 "Scale": [
                     1.0,
@@ -33651,7 +33651,12 @@
                             {
                                 "VariableName": "mControllerVideoBinding",
                                 "MemberType": 3,
-                                "VariableData": -1
+                                "VariableData": 2102328929
+                            },
+                            {
+                                "VariableName": "mControllerFinalVideoBinding",
+                                "MemberType": 3,
+                                "VariableData": 2118620243
                             },
                             {
                                 "VariableName": "mControllerCollectibleOpenBinding",
@@ -33711,7 +33716,12 @@
                             {
                                 "VariableName": "mKeyboardVideoBinding",
                                 "MemberType": 3,
-                                "VariableData": -1
+                                "VariableData": 2098360532
+                            },
+                            {
+                                "VariableName": "mKeyboardFinalVideoBinding",
+                                "MemberType": 3,
+                                "VariableData": 2114582225
                             },
                             {
                                 "VariableName": "mKeyboardCollectibleOpenBinding",
