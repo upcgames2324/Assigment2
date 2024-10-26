@@ -590,7 +590,12 @@ void InspectorPanel::DrawSpotLightComponent(SpotLightComponent* component) const
 	{
 		component->SetCastShadow(castShadow);
 	}
-
+	if (component->CanCastShadow())
+	{
+		bool pShadow = component->GetPriorityShadow();
+		if (ImGui::Checkbox("PriorityShadow", &pShadow))
+			component->SetPriorityShadow(pShadow);
+	}
 	if (!castShadow)
 	{
 		ImGui::BeginDisabled();

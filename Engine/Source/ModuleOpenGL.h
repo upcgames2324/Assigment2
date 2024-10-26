@@ -7,7 +7,7 @@
 #include "BatchManager.h"
 #include <vector>
 
-#define NUM_SHADOW_MAPS 16
+#define NUM_SHADOW_MAPS 17
 #define SHADOW_MAPS_SIZE 1024
 
 
@@ -219,7 +219,7 @@ private:
 	float mBloomIntensity = 0.5f;
 
 	void ResizeGBuffer(unsigned int width, unsigned int height);
-	void InitBloomTextures(unsigned int width, unsigned int height);
+	void InitBlurTextures(unsigned int width, unsigned int height);
 	//void Draw();
 
 	//Camera

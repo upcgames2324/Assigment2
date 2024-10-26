@@ -43,7 +43,7 @@ SpotLightComponent::SpotLightComponent(GameObject* owner) : Component(owner, Com
 
 
 SpotLightComponent::SpotLightComponent(const SpotLightComponent* original, GameObject* owner)
-	: Component(owner, ComponentType::SPOTLIGHT), mData(original->mData), mShadowFrustum(original->mShadowFrustum), mCastShadow(original->mCastShadow), mBias(original->mBias), mVolumetric(original->mVolumetric)
+	: Component(owner, ComponentType::SPOTLIGHT), mData(original->mData), mShadowFrustum(original->mShadowFrustum), mCastShadow(original->mCastShadow), mBias(original->mBias), mVolumetric(original->mVolumetric), mPriorityShadow(original->mPriorityShadow)
 {
 	if (IsEnabled())
 	{
@@ -181,6 +181,7 @@ void SpotLightComponent::Save(JsonObject& obj) const
 	obj.AddBool("CastShadow", mCastShadow);
 	obj.AddFloat("Bias", mBias);
 	obj.AddBool("isVolumetric", mVolumetric);
+	obj.AddBool("PriorityShadow", mPriorityShadow);
 }
 
 //TODO: why is the GO owner passed here??
@@ -234,6 +235,8 @@ void SpotLightComponent::Load(const JsonObject& data, const std::unordered_map<u
 	mShadowFrustum.verticalFov = 2.0f * acos(mData.color[3]);
 
 	if (data.HasMember("isVolumetric")) SetVolumetric(data.GetBool("isVolumetric"));
+
+	if (data.HasMember("PriorityShadow")) mPriorityShadow = data.GetBool("PriorityShadow");
 
 	App->GetOpenGL()->UpdateSpotLightInfo(*this);
 	
