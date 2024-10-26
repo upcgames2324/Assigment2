@@ -294,10 +294,7 @@ void CinematicCamera::UpdateCinematic(GameObject* dummy, BattleArea* battleArea)
             }
             else
             {
-                if (HandleFadeOut())
-                {
-                    mPlayingCinematic = false;
-                }
+                HandleFadeOut();
             }
         }
         else
@@ -319,7 +316,6 @@ void CinematicCamera::UpdateCinematic(GameObject* dummy, BattleArea* battleArea)
         if (Fade(false))
         {
             mEscape = false;
-            mPlayingCinematic = false;
         }
 
         return;
@@ -443,6 +439,7 @@ void CinematicCamera::HandleEscape()
 
 void CinematicCamera::EndCinematic()
 {
+    mPlayingCinematic = false;
     if (mPlayerController)
     {
         mPlayerController->EnableLaser(true);
