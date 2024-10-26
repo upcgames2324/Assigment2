@@ -153,7 +153,15 @@ int AudioManager::Release(BGM bgm, int id)
         return Release(id);
     }
 
-    App->GetAudio()->Stop(description, id);
+    // Special case
+    if (bgm == BGM::BOSS)
+    {
+        App->GetAudio()->Stop(description, id, true);
+    }
+    else 
+    {
+        App->GetAudio()->Stop(description, id);
+    }
     App->GetAudio()->Release(description, id);
 
     return -1;
