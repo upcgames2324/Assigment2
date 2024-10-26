@@ -1,4 +1,4 @@
-[![Lint and Build with MSBuild](https://github.com/Assigment2Company/Assigment2/actions/workflows/lint_and_msbuild.yml/badge.svg?branch=develop)](https://github.com/Assigment2Company/Assigment2/actions/workflows/lint_and_msbuild.yml)
+
 # Helheim-Engine
 This project is a Game Engine made for UPC videogames Master´s Degree
 
@@ -6,8 +6,59 @@ This project is a Game Engine made for UPC videogames Master´s Degree
 
 ## Installation
 
-Download GameEngine.zip file in [release](https://github.com/RollingBarrel/Helheim-Engine/releases), unzip it and execute the Engine.exe file.
+Download Zip file in the latest [release](https://github.com/RollingBarrel/Helheim-Engine/releases), unzip it and execute the Engine.exe file.
 
+## RollingB Barrel Team
+**Programmers**
+- Jordi Joan Alonso Llovet [LinkedIn](https://www.linkedin.com/in/jordi-alonso-llovet-99bb01b5/)
+- Jordi Bach Balcells [LinkedIn](https://www.linkedin.com/in/jordi-bach-822510214/)
+- Marc Belmonte Juliachs [LinkedIn](https://www.linkedin.com/in/marc-belmonte-juliachs-741470240/)
+- Jaime Coronado [LinkedIn](https://www.linkedin.com/in/jaime-andres-coronado-arteta-23700728a/)
+- Ariadna Cortés i Puig [LinkedIn](https://www.linkedin.com/in/ariadna-cortes-puig)
+- Marc Gabernet Rodríguez [LinkedIn](https://www.linkedin.com/in/marc-gabernet-rodríguez-56213b24a/)
+- Oriol Gallego Vazquez [LinkedIn](https://www.linkedin.com/in/oriol-gallego-vazquez-778266227/)
+- Moises Garcia Jimenez [LinkedIn](https://www.linkedin.com/in/mois%C3%A9s-garcia-jimenez-797586147/)
+- Carlos García Segura [LinkedIn](https://www.linkedin.com/in/carlosgs1999/)
+- Xinyu Jiang [LinkedIn](https://www.linkedin.com/in/jiang-xinyu-b39a06200/)
+- David Longarón Lorente [LinkedIn](https://www.linkedin.com/in/davidlongaron/)
+- Giovanni Matera [LinkedIn](https://github.com/RollingBarrel/Helheim-Engine/releases)
+- Oscar Mellado Arbelo [LinkedIn](https://github.com/RollingBarrel/Helheim-Engine/releases)
+- Adrián Mirabel Martínez [LinkedIn](https://www.linkedin.com/in/a-mirabel/)
+- Jordi Nieto Maldonado [LinkedIn](https://www.linkedin.com/in/jordi-nieto-maldonado-b84327144/)
+- Oscar Pellicé Mas [LinkedIn](https://www.linkedin.com/in/oscar-pellice-mas/)
+- Josep Adrià Vilaplana Miret [LinkedIn](https://www.linkedin.com/in/josepvilaplana/)
+
+**Artists**
+- Robin Aitken [LinkedIn](https://www.linkedin.com/in/robin-aitken-aa20949a/)
+- Natalia Cabrera [LinkedIn](https://www.linkedin.com/in/natalia-cabrera/)
+- Phillip Cherukara [LinkedIn](https://www.linkedin.com/in/philip-c-philip/)
+- Roc Feijoo Massot [LinkedIn](https://www.linkedin.com/in/roc-feijoo-massot/)
+- Kristina Lyudmilova Stoyanova [LinkedIn](https://www.linkedin.com/in/kristina-stoyanova-898363a7/)
+- Joan March Martos [LinkedIn](https://www.linkedin.com/in/joan-march-martos-383b3a287/)
+- Carlos Núñez Galindo [LinkedIn](https://www.linkedin.com/in/carlosnunezgalindo/)
+- Laia Ruiz Royo [LinkedIn](https://www.linkedin.com/in/laia-ruiz-royo-291632278/?locale=en_US)
+- Alex Alonso Torrell Corrales [LinkedIn](https://www.linkedin.com/in/alex-torrell-corrales-6631a4334)
+
+## Features
+- 3D scene viewer with multiple debug options
+- Loading and Saving of scenes
+- Import of GLTF models and DirectXTex textures
+- Resource management of imported files
+- Model animation with state machines
+- VFX system
+- Fmod audio support
+- Rendering
+  - Geometry draw with batching
+  - Deffered rendering
+  - GPU Culling
+  - G-buffer materials
+  - Image Based Lightning for ambient lights
+  - Post-processing (Bloom, Volumetric lights, Height fog)
+  - Screen Space Ambient Occlusion
+- C++ Scripting system for gameplay
+- AI pathfinding and navigation support.
+- UI Canvas creation
+   
 ## Engine Guide
 
 - Camera
@@ -33,10 +84,6 @@ Download GameEngine.zip file in [release](https://github.com/RollingBarrel/Helhe
   - E to Rotate object.
   - R to scale object.  
 
-- **Mesh Renderer Component**
-    - All information about materials and meshes can be read and modified here. 
-- Lighting Panel
-  - In this panel you are able to modify: ambient color, brightness and KD (Diffuse Attenuation Coefficient).
 - Main Menu bar
   - File
     - Save Scene
@@ -49,6 +96,11 @@ Download GameEngine.zip file in [release](https://github.com/RollingBarrel/Helhe
       - Shows QuadTree structure (can be updated using Refresh button).
     - Debug
       - Activate or Deactivate Grid and world Guizmo.
+  - Tools
+    - View frame data and timer values.
+    - Navemesh controller where you can edit parameters.
+    - Scene debug options (Draw colliders and bounding boxes, change render type).
+    - View Fmod audio memory usage and active events.
   - Window
     - Panels
       - From here every panel of the engine can be opened or closed.
