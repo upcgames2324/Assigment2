@@ -96,6 +96,7 @@ void Teleporter::Update()
     }
     else if (mIsEntering)
     {
+
         mCurrentTime += App->GetDt();
         float3 positon = LerpPosition(mEnterDuration, mFirstPlayerPos);
         mPlayer->SetWorldPosition(positon);
@@ -215,6 +216,9 @@ void Teleporter::OnCollisionEnter(CollisionData* collisionData)
             mPlayerAnimation->SendTrigger("tWalkForward", 0.2f);
             mPlayerAnimation->SendSpineTrigger("tWalkForward", 0.2f);
             mFirstPlayerPos = mPlayer->GetWorldPosition();
+
+            if(mPlayerController->IsPlayerDashing())
+                mPlayerController->DisableDashEffect();
         }
 
         if (mIsAtStart)
