@@ -619,6 +619,12 @@ void PlayerController::DashLookAtFront()
     mGameObject->LookAt(float3(dir.x + pos.x, pos.y, dir.z + pos.z));
 }
 
+void PlayerController::DisableDashEffect()
+{
+    mDashVFX->SetEnabled(false);
+    mCharacterMesh->SetEnabled(true);
+}
+
 std::string PlayerController::GetLowerAnimState() const
 {
     if (mAnimationComponent)
