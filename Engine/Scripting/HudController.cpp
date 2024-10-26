@@ -531,16 +531,19 @@ void HudController::PlayVideoAssociatedAudio(const char* videoName)
 
     if (strcmp(videoName, "Chrysalis_intro.mp4") == 0)
     {
+        GameManager::GetInstance()->PauseBackgroundAudio(false);
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::INTRO_VIDEO);
         GameManager::GetInstance()->GetAudio()->SetLoop(BGM::INTRO_VIDEO, mVideoAudio, isVideoLoop);
     }
     else if (strcmp(videoName, "Video_AFTER_Boss.mp4") == 0)
     {
+        GameManager::GetInstance()->PauseBackgroundAudio(false);
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::AFTER_BOSS);
         GameManager::GetInstance()->GetAudio()->SetLoop(BGM::AFTER_BOSS, mVideoAudio, isVideoLoop);
     }
     else if (strcmp(videoName, "Video_BEFORE_Boss.mp4") == 0)
     {
+        GameManager::GetInstance()->PauseBackgroundAudio(true);
         mVideoAudio = GameManager::GetInstance()->GetAudio()->Play(BGM::BEFORE_BOSS);
         GameManager::GetInstance()->GetAudio()->SetLoop(BGM::BEFORE_BOSS, mVideoAudio, isVideoLoop);
     }
