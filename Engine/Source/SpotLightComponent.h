@@ -54,6 +54,8 @@ public:
 	void SetShadowIndex(int index);
 	bool GetVolumetric() const { return mVolumetric; }
 	void SetVolumetric(bool newValue);
+	bool GetPriorityShadow() const { return mPriorityShadow; }
+	void SetPriorityShadow(bool value) { mPriorityShadow = value; }
 
 	const Frustum& GetFrustum() const { return mShadowFrustum; }
 
@@ -65,8 +67,9 @@ private:
 	Frustum mShadowFrustum;
 
 	bool mCastShadow = false;
-	float mBias;
+	bool mPriorityShadow = false;
 	bool mVolumetric = false;
+	float mBias;
 };
 
 #endif //_COMPONENT_SPOTLIGHT_H_
