@@ -7,7 +7,7 @@ HelheimEngine is a custom-built game engine developed in C++ and OpenGL for Chry
 
 ## Installation
 
-Download Zip file in the latest [release](https://github.com/RollingBarrel/Helheim-Engine/releases), unzip it and execute the Helheim_Engine.exe file.
+Download Zip file in the latest [release](https://github.com/RollingBarrel/Helheim-Engine/releases), unzip it and execute the Helheim_Engine.exe for the engine or Chrysalis.exe for the game.
 
 ## Rolling Barrel Team
 **Programmers**
