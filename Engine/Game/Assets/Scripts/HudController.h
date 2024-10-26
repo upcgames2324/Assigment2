@@ -291,6 +291,7 @@ private:
     GameObject* mControllerDialogueNextBinding = nullptr;
     GameObject* mControllerDialogueSkipBinding = nullptr;
     GameObject* mControllerVideoBinding = nullptr;
+    GameObject* mControllerFinalVideoBinding = nullptr;
     GameObject* mControllerCollectibleOpenBinding = nullptr;
     GameObject* mControllerCollectibleCloseBinding = nullptr;
     GameObject* mControllerMenuSelectBinding = nullptr;
@@ -304,6 +305,7 @@ private:
     GameObject* mKeyboardDialogueNextBinding = nullptr;
     GameObject* mKeyboardDialogueSkipBinding = nullptr;
     GameObject* mKeyboardVideoBinding = nullptr;
+    GameObject* mKeyboardFinalVideoBinding = nullptr;
     GameObject* mKeyboardCollectibleOpenBinding = nullptr;
     GameObject* mKeyboardCollectibleCloseBinding = nullptr;
     GameObject* mKeyboardMenuSelectBinding = nullptr;
