@@ -3,11 +3,12 @@
 HelheimEngine is a custom-built game engine developed in C++ and OpenGL for Chrysalis. Built specifically for the needs of Chrysalis, HelheimEngine showcases a balance between technical innovation and efficiency, delivering a powerful solution to meet the project's demanding requirements.
 
 
+- [Rolling Barrel Website](https://rollingbarrel.github.io/)
 - [Game Engine Github Repository](https://github.com/RollingBarrel/Helheim-Engine)
 
 ## Installation
 
-Download Zip file in the latest [release](https://github.com/RollingBarrel/Helheim-Engine/releases), unzip it and execute the Helheim_Engine.exe for the engine or Chrysalis.exe for the game.
+Download Zip file in the latest [release](https://github.com/RollingBarrel/Helheim-Engine/releases/latest), unzip it and execute the **Chrysalis.exe** for the game or **Helheim_Engine.exe** for the engine.
 
 ## Rolling Barrel Team
 **Programmers**
@@ -23,7 +24,7 @@ Download Zip file in the latest [release](https://github.com/RollingBarrel/Helhe
 - Xinyu Jiang [LinkedIn](https://www.linkedin.com/in/jiang-xinyu-b39a06200/)
 - David Longarón Lorente [LinkedIn](https://www.linkedin.com/in/davidlongaron/)
 - Giovanni Matera [LinkedIn]()
-- Oscar Mellado Arbelo [LinkedIn]()
+- Oscar Mellado Arbelo [LinkedIn](https://www.linkedin.com/in/oscarmellado/)
 - Adrián Mirabel Martínez [LinkedIn](https://www.linkedin.com/in/a-mirabel/)
 - Jordi Nieto Maldonado [LinkedIn](https://www.linkedin.com/in/jordi-nieto-maldonado-b84327144/)
 - Oscar Pellicé Mas [LinkedIn](https://www.linkedin.com/in/oscar-pellice-mas/)
