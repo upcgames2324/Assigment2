@@ -9,6 +9,8 @@
 #include "MeshRendererComponent.h"
 #include "IconsFontAwesome6.h"
 #include <regex>
+#include "ModuleEngineCamera.h"
+#include "CameraComponent.h"
 
 static void AddSuffix(GameObject& gameObject)
 {
@@ -161,6 +163,17 @@ void HierarchyPanel::OnRightClickNode(GameObject* node)
 			GameObject* gameObject = new GameObject(node);
 			//node->AddChild(gameObject);
 			AddSuffix(*gameObject);
+			mLastClickedObject = gameObject->GetID();
+			InternalSetFocus(gameObject);
+			mMarked.clear();
+		}
+		if (ImGui::Selectable("Object from editor camera"))
+		{
+			GameObject* gameObject = new GameObject(App->GetScene()->GetRoot());
+			gameObject->SetWorldPosition(EngineApp->GetEngineCamera()->GetEditorCamera()->GetOwner()->GetWorldPosition());
+			gameObject->SetWorldRotation(EngineApp->GetEngineCamera()->GetEditorCamera()->GetOwner()->GetWorldRotation());
+			//node->AddChild(gameObject);
+			//AddSuffix(*gameObject);
 			mLastClickedObject = gameObject->GetID();
 			InternalSetFocus(gameObject);
 			mMarked.clear();

@@ -231,6 +231,7 @@
     <ClInclude Include="..\Game\Assets\Scripts\CinematicCamera.h">
       <Filter>Cinematic</Filter>
     </ClInclude>
+    <ClInclude Include="..\Game\Assets\Scripts\FilmCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Macros.h">
@@ -419,5 +420,6 @@
     <ClCompile Include="CinematicCamera.cpp">
       <Filter>Cinematic</Filter>
     </ClCompile>
+    <ClCompile Include="FilmCamera.cpp" />
   </ItemGroup>
 </Project>

@@ -60,8 +60,8 @@ GameObject::GameObject(unsigned int uid, const char* name, GameObject* parent)
 }
 
 GameObject::GameObject(const GameObject& original, GameObject* newParent, std::unordered_map<const GameObject*, GameObject*>* originalToNew, std::vector<MeshRendererComponent*>* meshRendererComps, std::vector<AnimationComponent*>* animationComps)
-	:mUid(LCG().Int()), mName(original.mName), mParent(newParent),
-	mIsRoot(original.mIsRoot), mIsEnabled(original.mIsEnabled), mIsActive(newParent->mIsActive&& original.mIsEnabled),
+	:mUid(LCG().Int()), mName(original.mName), mParent((newParent) ? newParent : App->GetScene()->GetRoot()),
+	mIsRoot(original.mIsRoot), mIsEnabled(original.mIsEnabled), mIsActive((newParent) ? newParent->mIsActive&& original.mIsEnabled : true),
 	mWorldTransformMatrix(original.GetWorldTransform()), mLocalTransformMatrix(original.mLocalTransformMatrix),
 	mWorldEulerAngles(original.GetWorldEulerAngles()), mLocalRotation(original.mLocalRotation), mWorldRotation(original.GetWorldRotation()), mLocalEulerAngles(original.mLocalEulerAngles),
 	mWorldScale(original.GetWorldScale()), mLocalScale(original.mLocalScale), 
@@ -741,6 +741,13 @@ GameObject* GameObject::RemoveChild(const int id)
 	}
 	
 	return object;
+}
+
+void GameObject::RemoveChildren()
+{
+	for (std::vector<GameObject*>::const_iterator it = mChildren.cbegin(); it != mChildren.cend(); ++it)
+			delete *it;
+	mChildren.clear();
 }
 
 #pragma endregion

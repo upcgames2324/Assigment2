@@ -81,7 +81,7 @@ SpotLightComponent::~SpotLightComponent()
 	App->GetOpenGL()->RemoveSpotLight(*this);
 }
 
-void SpotLightComponent::SetColor(float color[3])
+void SpotLightComponent::SetColor(const float color[3])
 {
 	mData.color[0] = color[0];
 	mData.color[1] = color[1];

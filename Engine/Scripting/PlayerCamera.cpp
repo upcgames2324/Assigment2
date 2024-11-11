@@ -56,8 +56,8 @@ void PlayerCamera::Shake()
 {
     if (mCameraObject)
     {
-        float randomX = ((float)rand()) / (float)RAND_MAX * mShakePositionOffsetStrength;
-        float randomY = ((float)rand()) / (float)RAND_MAX * mShakePositionOffsetStrength;
+        float randomX = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * mShakePositionOffsetStrength;
+        float randomY = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * mShakePositionOffsetStrength;
 
         mCameraObject->SetLocalPosition(float3(randomX,randomY,0.0f));
     }

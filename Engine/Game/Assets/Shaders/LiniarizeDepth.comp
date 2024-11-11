@@ -1,0 +1,25 @@
+#version 460 core
+
+layout(binding = 0) uniform sampler2D depthTexture;
+uniform layout(binding = 0, rgba32f) restrict writeonly image2D linearDepthTex;
+
+layout(std140, binding = 0) uniform CameraMatrices
+{
+	mat4 view;
+	mat4 proj;
+	mat4 invView;
+};
+layout(location = 0) uniform float farPlaneDistance;
+
+float GetLinearZ(float inputDepth)
+{
+	return (proj[3][2] / (proj[2][2] + (inputDepth * 2.0 - 1.0))) / farPlaneDistance;
+}
+
+layout(local_size_x = 8, local_size_y = 8, local_size_z = 1) in;
+void main()
+{
+	ivec2 texSize = textureSize(depthTexture, 0);
+	if(gl_GlobalInvocationID.x < texSize.x && gl_GlobalInvocationID.y < texSize.y)
+		imageStore(linearDepthTex, ivec2(gl_GlobalInvocationID.xy), vec4(vec3(GetLinearZ(texelFetch(depthTexture, ivec2(gl_GlobalInvocationID.xy), 0).r)),1.0f));
+}

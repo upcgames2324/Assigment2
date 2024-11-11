@@ -141,6 +141,13 @@ bool ModuleOpenGL::Init()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, mGDepth, 0);
+
+	glGenTextures(1, &mGLiniarizedDepth);
+	glBindTexture(GL_TEXTURE_2D, mGLiniarizedDepth);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, App->GetWindow()->GetWidth(), App->GetWindow()->GetHeight(), 0, GL_RGBA, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
 	//glGenTextures(1, &depthStencil);
 	//glBindTexture(GL_TEXTURE_2D, depthStencil);
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH32F_STENCIL8, App->GetWindow()->GetWidth(), App->GetWindow()->GetHeight(), 0, GL_DEPTH_STENCIL, GL_FLOAT_32_UNSIGNED_INT_24_8_REV, NULL);
@@ -323,8 +330,11 @@ bool ModuleOpenGL::Init()
 	mVolFogPostpoProgramId = CreateShaderProgramFromPaths(sourcesPaths, &computeType, 1);
 	sourcesPaths[0] = "GBRChannels.comp";
 	mBGRChannelsProgramId = CreateShaderProgramFromPaths(sourcesPaths, &computeType, 1);
+	sourcesPaths[0] = "LiniarizeDepth.comp";
+	mLiniarizeDepthProgramId = CreateShaderProgramFromPaths(sourcesPaths, &computeType, 1);
 
 	sourcesPaths[0] = "GameVertex.glsl";
+	//sourcesPaths[1] = "Fragment.glsl";
 	sourcesPaths[1] = "PBRCT_LightingPass.glsl";
 	mPbrLightingPassProgramId = CreateShaderProgramFromPaths(sourcesPaths, sourcesTypes, 2);
 
@@ -703,8 +713,8 @@ void ModuleOpenGL::SceneFramebufferResized(unsigned int width, unsigned int heig
 	InitBlurTextures(width, height);
 	glBindTexture(GL_TEXTURE_2D, mSSAO);
 	//VOLVER A PONER EL RED
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, width, height, 0, GL_RED, GL_FLOAT, NULL);
-	//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, NULL);
+	//glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, width, height, 0, GL_RED, GL_FLOAT, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, NULL);
 	ResizeGBuffer(width, height);
 	LightCullingLists(width, height);
 	glBindTexture(GL_TEXTURE_2D, mVolTexId);
@@ -756,6 +766,8 @@ void ModuleOpenGL::ResizeGBuffer(unsigned int width, unsigned int height)
 	//glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, width, height, 0, GL_RED, GL_FLOAT, NULL);
 	glBindTexture(GL_TEXTURE_2D, mGDepth);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH32F_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_FLOAT_32_UNSIGNED_INT_24_8_REV, NULL);
+	glBindTexture(GL_TEXTURE_2D, mGLiniarizedDepth);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, width, height, 0, GL_RGBA, GL_FLOAT, NULL);
 	glBindTexture(GL_TEXTURE_2D, mGPosition);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, width, height, 0, GL_RGB, GL_FLOAT, NULL);
 	glBindTexture(GL_TEXTURE_2D, 0);
@@ -967,6 +979,14 @@ void ModuleOpenGL::SetSkybox(unsigned int uid)
 unsigned int ModuleOpenGL::GetSkyboxID() const
 {
 	return (mCurrSkyBox) ? mCurrSkyBox->GetUID() : 0;
+}
+
+void ModuleOpenGL::ToggleAO()
+{
+	mAoActive = !mAoActive;
+	glUseProgram(GetPbrLightingPassProgramId());
+	glUniform1i(glGetUniformLocation(GetPbrLightingPassProgramId(), "activeAO"), mAoActive);
+	glUseProgram(0);
 }
 
 unsigned int ModuleOpenGL::BlurTexture(unsigned int texId, bool modifyTex, unsigned int passes, unsigned int startIdx) const
@@ -1321,7 +1341,7 @@ void ModuleOpenGL::Draw()
 	
 	for (std::map<float, const SpotLightComponent*>::iterator it = orderedLights.begin(); it != orderedLights.end(); ++it)
 	{	
-		if (chosenLights.size() > NUM_SHADOW_MAPS)
+		if (chosenLights.size() >= NUM_SHADOW_MAPS)
 			break;
 		//if (App->GetCamera()->GetCurrentCamera()->GetFrustum().Intersects(it->second->GetFrustum()))
 		//{
@@ -1396,6 +1416,15 @@ void ModuleOpenGL::Draw()
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, mGDepth);
 	glDispatchCompute((mSceneWidth + CULL_LIGHT_TILE_SIZEX - 1) / CULL_LIGHT_TILE_SIZEX, (mSceneHeight + CULL_LIGHT_TILE_SIZEY - 1) / CULL_LIGHT_TILE_SIZEY, 1);
+	glPopDebugGroup();
+
+	glPushDebugGroup(GL_DEBUG_SOURCE_APPLICATION, 0, -1, "Liniarize Depth");
+	glUseProgram(mLiniarizeDepthProgramId);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, mGDepth);
+	glUniform1f(0, App->GetCamera()->GetCurrentCamera()->GetFarPlane());
+	glBindImageTexture(0, mGLiniarizedDepth, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+	glDispatchCompute((mSceneWidth + 7) / 8, (mSceneHeight + 7) / 8, 1);
 	glPopDebugGroup();
 
 	//Decal Pass

@@ -14,7 +14,8 @@ bool ModuleGame::Init()
 	glGenVertexArrays(1, &mVAO);
 
 	//TODO: read the name of the fitrst scene to load from somewhere
-	App->GetScene()->Load("Assets/Scenes/MainMenu");
+	App->GetScene()->Load("Assets/Scenes/Level1Film");
+	App->GetWindow()->WindowFullscreen(true);
 	//App->GetScene()->Load("Level1");
 	//TODO:: This is bad for decoupling
 	//App->GetScriptManager()->AwakeScripts();
@@ -52,6 +53,7 @@ update_status ModuleGame::Update(float dt)
 	glBindVertexArray(mVAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, App->GetOpenGL()->GetFramebufferTexture());
+	//glBindTexture(GL_TEXTURE_2D, App->GetOpenGL()->GetVolumetricTexture());
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glBindVertexArray(0);
 	glUseProgram(0);

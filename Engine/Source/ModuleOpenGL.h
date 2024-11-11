@@ -83,6 +83,7 @@ public:
 	unsigned int GetGBufferEmissive() const { return mGEmissive; }
 	unsigned int GetGBufferNormals() const { return mGNormals; }
 	unsigned int GetGBufferDepth() const { return mGDepth; }
+	unsigned int GetLiniarizedGBufferDepth() const { return mGLiniarizedDepth; }
 	unsigned int GetGBufferPos() const { return mGPosition; }
 	unsigned int GetGBufferSSAO() const { return mSSAO; }
 	unsigned int GetBluredTexture() const { return mBlurTex[0]; }
@@ -149,6 +150,7 @@ public:
 	unsigned int GetSceneWidth() const { return mSceneWidth; }
 	unsigned int GetSceneHeight() const { return mSceneHeight; }
 
+	void ToggleAO();
 	bool mAoActive{ true };
 	float mAoRange = 1.0f;
 	float mAoBias = 0.0001f;
@@ -210,6 +212,7 @@ private:
 	unsigned int mGEmissive;
 	unsigned int mGColDepth;
 	unsigned int mGDepth;
+	unsigned int mGLiniarizedDepth;
 	//AO
 	unsigned int mSSAO;
 	//bloom bramebuffer
@@ -264,6 +267,7 @@ private:
 	unsigned int mVolLightProgramId = 0;
 	unsigned int mVolFogPostpoProgramId = 0;
 	unsigned int mBGRChannelsProgramId = 0;
+	unsigned int mLiniarizeDepthProgramId = 0;
 
 	unsigned int mParticleProgramId = 0;
 	unsigned int mTrailProgramId = 0;

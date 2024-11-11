@@ -4,7 +4,7 @@
 #define TANGENT_COLS 20
 #define KERNEL_SIZE 24
 
-out float color;
+out vec3 color;
 in vec2 uv;
 
 layout(std140, binding = 0) uniform CameraMatrices
@@ -80,5 +80,5 @@ void main()
 	}
 
 	//vec3 occlusionFactor = vec3(texture(ambientOcclusion,uv).r);
-	color = 1.0f - occlusion / float(KERNEL_SIZE);
+	color = vec3(1.0f - occlusion / float(KERNEL_SIZE));
 }

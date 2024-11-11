@@ -37,7 +37,7 @@ public:
 	const SpotLight& GetData() const { return mData; }
 	const float* GetDirection() const { return mData.aimD; };
 	const float* GetColor() const { return mData.color; }
-	void SetColor(float col[3]);
+	void SetColor(const float col[3]);
 	float GetIntensity() const { return mData.pos[3]; }
 	void SetIntensity(float intensity);
 	float GetRange() const { return mData.range; }

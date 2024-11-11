@@ -799,6 +799,7 @@
     <ClInclude Include="VideoComponent.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Game\Assets\Shaders\Fragment.glsl" />
     <None Include="..\Game\Assets\Shaders\GBRChannels.comp" />
     <None Include="..\Game\Assets\Shaders\Fog.comp" />
     <None Include="..\Game\Assets\Shaders\GameFragment.glsl" />
@@ -813,6 +814,7 @@
     <None Include="..\Game\Assets\Shaders\Irradiance_FragmentShader.glsl" />
     <None Include="..\Game\Assets\Shaders\KawaseDualFilterDownBlur.glsl" />
     <None Include="..\Game\Assets\Shaders\KawaseDualFilterUpBlur.glsl" />
+    <None Include="..\Game\Assets\Shaders\LiniarizeDepth.comp" />
     <None Include="..\Game\Assets\Shaders\Noise.comp" />
     <None Include="..\Game\Assets\Shaders\particle_fragment.glsl" />
     <None Include="..\Game\Assets\Shaders\particle_vertex.glsl" />

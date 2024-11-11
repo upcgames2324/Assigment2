@@ -60,6 +60,7 @@ public:
 	// Children
 	void AddChild(GameObject* child);
 	GameObject* RemoveChild(const int id);	//Remove from mChildren does not delete
+	void RemoveChildren();
 
 	//Matrices
 	const float4x4& GetWorldTransform() const { RecalculateMatrices(); return mWorldTransformMatrix; }

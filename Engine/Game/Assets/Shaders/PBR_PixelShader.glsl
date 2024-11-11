@@ -188,7 +188,7 @@ void main()
 	vec3 hdrCol = ambientCol * diffuseColor + pbrCol;
 	
 	//LDR color with reinhard tone Mapping
-	vec3 ldrCol = hdrCol / (hdrCol.rgb + vec3(1.0));;
+	vec3 ldrCol = hdrCol / (hdrCol.rgb + vec3(1.0));
 
 	//Gamma correction
 	ldrCol = pow(ldrCol, vec3(1/2.2));

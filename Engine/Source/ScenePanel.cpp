@@ -189,7 +189,7 @@ void ScenePanel::MenuGBuffer()
 			}
 			if (ImGui::Selectable("DEPTH")) 
 			{
-				currentScene = EngineApp->GetOpenGL()->GetGBufferDepth();
+				currentScene = EngineApp->GetOpenGL()->GetLiniarizedGBufferDepth();
 				currentSceneName = "DEPTH";
 			}
 			if (ImGui::Selectable("BLUR"))

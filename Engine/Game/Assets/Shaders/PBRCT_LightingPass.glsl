@@ -39,14 +39,12 @@ readonly layout(std430, binding = 1) buffer SpotLights
 	SpotLight sLights[];
 };
 
-
 struct Shadow
 {
 	mat4 viewProjMatrix;
 	sampler2D shadowMap;
 	float bias;
 };
-
 readonly layout(std430, binding = 4) buffer SpotLightShadows
 {
 	Shadow shadows[];
